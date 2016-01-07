@@ -1,0 +1,91 @@
+<div class="col-md-6 col-md-offset-3">
+    <h2>Achizitionare Polita RCA</h2>
+    
+    <form name="form" ng-submit="vm.send()" role="form">
+        <h3>Date Personale: </h3>
+        <div class="form-group" ng-class="{ 'has-error': form.cnp.$dirty && form.cnp.$error.required }">
+            <label for="cnp">CNP</label>
+            <input type="number" name="cnp" id="cnp" class="form-control" ng-model="vm.user.cnp" required />
+            <span ng-show="form.cnp.$dirty && form.cnp.$error.required" class="help-block">CNP is required</span>
+        </div>
+        
+        <div class="form-group" ng-class="{ 'has-error': form.password.$dirty && form.password.$error.required }">
+            <label for=radio1>Persoana Fizica</label>
+            <input type="radio" id="radio1" name="chickenEgg" value="chicken" ng-model="vm.user.persfizica">
+            <label for=radio2>Persoana Juridica</label>
+            <input type="radio" id="radio2" name="chickenEgg" value="chicken" ng-model="vm.user.persjuridica">
+        </div>
+        
+        <div class="form-group" ng-class="{ 'has-error': form.adress.$dirty && form.adress.$error.required }">
+            <label for="adress">Adresa</label>
+            <textarea ng-model="vm.user.adress" name="adress" rows="5" cols="50"
+                        class="form-control" id="adresssg" required> </textarea>
+            <span ng-show="form.adress.$dirty && form.adress.$error.required" class="help-block">adress is required</span>
+        </div>
+
+        <h3>Date Autovehicul: </h3>
+        
+        <div class="form-group" ng-class="{ 'has-error': form.marca.$dirty && form.marca.$error.required }">
+            <label for="tipauto">Tip Auto: </label>
+            <select name="tipauto" id="tipauto" 
+                ng-options="option.name for option in vm.auto.tipAutoAvailableOptions track by option.id" 
+                ng-model="vm.auto.tipauto"></select>
+        </div>
+        
+        <div class="form-group" ng-class="{ 'has-error': form.marca.$dirty && form.marca.$error.required }">
+            <label for="marca"> Marca Auto: </label>
+            <select name="marca" id="marca" 
+                ng-options="option.name for option in vm.auto.marcaAvailableOptions track by option.id" 
+                ng-model="vm.auto.marca"></select>
+        </div>
+        
+        <div class="form-group" ng-class="{ 'has-error': form.model.$dirty && form.model.$error.required }">
+            <label for="marca"> Model Auto: </label>
+            <select name="model" id="model" 
+                ng-options="option.name for option in vm.auto.modelAvailableOptions track by option.id" 
+                ng-model="vm.auto.model"></select>
+        </div>
+       
+        <div class="form-group" ng-class="{ 'has-error': form.power.$dirty && form.power.$error.required }">
+            <label for="power">Putere</label>
+            <input type="number" name="power" id="power" class="form-control" ng-model="vm.auto.power" required />
+            <span ng-show="form.power.$dirty && form.power.$error.required" class="help-block">Power is required</span>
+        </div>
+        <div class="form-group" ng-class="{ 'has-error': form.serie.$dirty && form.serie.$error.required }">
+            <label for="serie">Numar inmatriculare</label>
+            <input type="number" name="serie" id="serie" class="form-control" ng-model="vm.auto.serie" required />
+            <span ng-show="form.serie.$dirty && form.serie.$error.required" class="help-block">Serial is required</span>
+        </div>
+        
+        <div class="form-group" ng-class="{ 'has-error': form.anfabr.$dirty && form.anfabr.$error.required }">
+            <label for="anfabr">Tip Conbustibil</label>
+            <input type="number" name="anfabr" id="anfabr" class="form-control" ng-model="vm.auto.anfabr" required />
+            <span ng-show="form.anfabr.$dirty && form.anfabr.$error.required" class="help-block">anfabr is required</span>
+        </div>
+        
+        <div class="form-group" ng-class="{ 'has-error': form.anfabr.$dirty && form.anfabr.$error.required }">
+            <label for="anfabr">An fabricatie</label>
+            <input type="number" name="anfabr" id="anfabr" class="form-control" ng-model="vm.auto.anfabr" required />
+            <span ng-show="form.anfabr.$dirty && form.anfabr.$error.required" class="help-block">anfabr is required</span>
+        </div>
+        
+        <div class="input-group date form-group" ng-class="{ 'has-error': form.date.$dirty && form.date.$error.required }">
+            <label for="date">Selectie Data</label>
+            <input type="date" name="date" id="date" class="form-control" ng-model="vm.auto.date" required />
+            <span ng-show="form.date.$dirty && form.date.$error.required" class="help-block">Serial is required</span>
+        </div>
+        
+        <div class="form-group" ng-class="{ 'has-error': form.model.$dirty && form.model.$error.required }">
+            <label for="marca"> Durata: </label>
+            <select name="model" id="model" 
+                ng-options="option.name for option in vm.auto.modelAvailableOptions track by option.id" 
+                ng-model="vm.auto.model"></select>
+        </div>
+        
+        <div class="form-actions">
+            <button type="submit" ng-disabled="form.$invalid || vm.dataLoading" class="btn btn-primary">Trimite</button>
+            <img ng-if="vm.dataLoading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
+            <a href="#/login" class="btn btn-link">Renunta</a>
+        </div>
+    </form>
+</div>

@@ -14,31 +14,36 @@ angular.module('myApp.dauna', ['ngRoute'])
   });
 }])
 
-.controller('IntroDaunaCtrl', ['$scope', function($scope) {
-      console.log("IntroDaunaCtrl");
+.controller('IntroDaunaCtrl', ['$scope', '$http', '$location', function($scope, $http, $location ) {
+
+    console.log("IntroDaunaCtrl");
     $scope.vm = this;
+    $scope.vm.marcaAvailableOptions = carBrands; /*global carBrands*/
     $scope.vm.dauna = {
-        marca: {id: '1', name: 'Option A'},
-        marcaAvailableOptions: [
-          {id: '1', name: 'Option A'},
-          {id: '2', name: 'Option B'},
-          {id: '3', name: 'Option C'}
-        ],
-        model: {id: '1', name: 'Option A'},
-        modelAvailableOptions: [
-          {id: '1', name: 'Option A'},
-          {id: '2', name: 'Option B'},
-          {id: '3', name: 'Option C'}
-        ]
-   };
-   
-   function send() {
-            $scope.vm.dataLoading = true;
-            console.log("sdadsd");
-            console.log($scope.vm.username);
-            console.log($scope.vm.password);
+        marca: {id: '0', name: '-- select brand --'}
     };
-    $scope.vm.login = send;
+    $scope.vm.show = false;
+    function dauna() {
+      console.log("sending post");
+      var data = JSON.stringify($scope.vm.dauna);
+        
+      var post = $http.post("/dauna", data);
+            
+          post.success(function(data, status) {
+            if (data.status == 'error'){
+              console.log(data.message);
+              $scope.vm.message = data.message;
+              $location.path('/dauna');
+              $scope.vm.show = true;
+            } else if (data.status == 'ok'){
+              $location.path(data.url);
+            }
+          });
+        
+            
+      };
+   
+    $scope.vm.send = dauna;
     
     $scope.vm.date = new Date();
         

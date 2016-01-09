@@ -10,15 +10,27 @@ angular.module('myApp.register', ['ngRoute'])
 }])
 
 
-.controller('RegisterCtrl', ['$scope', function($scope) {
-      console.log("asdadassdasdadas");
-     // console.log(this.vm.username);
-      // var vm = this;
+.controller('RegisterCtrl', ['$scope', '$http', '$location', function($scope, $http, $location ) {
       $scope.vm = this;
+      $scope.vm.show = false;
       function register() {
-            console.log("register");
-            console.log($scope.vm.user.username);
-            console.log($scope.vm.user.password);
+
+            var data = JSON.stringify($scope.vm.user);
+            
+            var post = $http.post("/user", data);
+            
+            post.success(function(data, status) {
+                if (data.status == 'error'){
+                    $scope.vm.message = data.message;
+                    $location.path('/register');
+                    $scope.vm.show = true;
+                } else if (data.status == 'ok'){
+                    $location.path(data.url);
+                }
+                
+            });
+        
+            
       };
       $scope.vm.register = register;
  

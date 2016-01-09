@@ -5,20 +5,20 @@
         <h3>Date Personale: </h3>
         <div class="form-group" ng-class="{ 'has-error': form.cnp.$dirty && form.cnp.$error.required }">
             <label for="cnp">CNP</label>
-            <input type="number" name="cnp" id="cnp" class="form-control" ng-model="vm.user.cnp" required />
+            <input type="number" name="cnp" id="cnp" class="form-control" ng-model="vm.cerere.cnp" required />
             <span ng-show="form.cnp.$dirty && form.cnp.$error.required" class="help-block">CNP is required</span>
         </div>
         
         <div class="form-group" ng-class="{ 'has-error': form.password.$dirty && form.password.$error.required }">
             <label for=radio1>Persoana Fizica</label>
-            <input type="radio" id="radio1" name="chickenEgg" value="chicken" ng-model="vm.user.persfizica">
+            <input type="radio" id="radio1" name="fizica" value="checked" ng-model="vm.cerere.persfizica">
             <label for=radio2>Persoana Juridica</label>
-            <input type="radio" id="radio2" name="chickenEgg" value="chicken" ng-model="vm.user.persjuridica">
+            <input type="radio" id="radio2" name="juridica" value="checked" ng-model="vm.cerere.persjuridica">
         </div>
         
         <div class="form-group" ng-class="{ 'has-error': form.adress.$dirty && form.adress.$error.required }">
             <label for="adress">Adresa</label>
-            <textarea ng-model="vm.user.adress" name="adress" rows="5" cols="50"
+            <textarea ng-model="vm.cerere.address" name="adress" rows="5" cols="50"
                         class="form-control" id="adresssg" required> </textarea>
             <span ng-show="form.adress.$dirty && form.adress.$error.required" class="help-block">adress is required</span>
         </div>
@@ -29,57 +29,57 @@
             <label for="tipauto">Tip Auto: </label>
             <select name="tipauto" id="tipauto" 
                 ng-options="option.name for option in vm.auto.tipAutoAvailableOptions track by option.id" 
-                ng-model="vm.auto.tipauto"></select>
+                ng-model="vm.cerere.tipauto"></select>
         </div>
         
         <div class="form-group" ng-class="{ 'has-error': form.marca.$dirty && form.marca.$error.required }">
             <label for="marca"> Marca Auto: </label>
             <select name="marca" id="marca" 
                 ng-options="option.name for option in vm.auto.marcaAvailableOptions track by option.id" 
-                ng-model="vm.auto.marca"></select>
+                ng-model="vm.cerere.marca"></select>
         </div>
         
-        <div class="form-group" ng-class="{ 'has-error': form.model.$dirty && form.model.$error.required }">
-            <label for="marca"> Model Auto: </label>
-            <select name="model" id="model" 
-                ng-options="option.name for option in vm.auto.modelAvailableOptions track by option.id" 
-                ng-model="vm.auto.model"></select>
+        <div class="form-group" ng-class="{ 'has-error': form.serie.$dirty && form.serie.$error.required }">
+            <label for="model">Model Auto:</label>
+            <input type="text" name="model" id="model" class="form-control" ng-model="vm.cerere.model" required />
+            <span ng-show="form.model.$dirty && form.model.$error.required" class="help-block">Serial is required</span>
         </div>
+        
        
         <div class="form-group" ng-class="{ 'has-error': form.power.$dirty && form.power.$error.required }">
             <label for="power">Putere</label>
-            <input type="number" name="power" id="power" class="form-control" ng-model="vm.auto.power" required />
+            <input type="text" name="power" id="power" class="form-control" ng-model="vm.cerere.power" required />
             <span ng-show="form.power.$dirty && form.power.$error.required" class="help-block">Power is required</span>
         </div>
         <div class="form-group" ng-class="{ 'has-error': form.serie.$dirty && form.serie.$error.required }">
             <label for="serie">Numar inmatriculare</label>
-            <input type="number" name="serie" id="serie" class="form-control" ng-model="vm.auto.serie" required />
+            <input type="text" name="serie" id="serie" class="form-control" ng-model="vm.cerere.serie" required />
             <span ng-show="form.serie.$dirty && form.serie.$error.required" class="help-block">Serial is required</span>
         </div>
         
         <div class="form-group" ng-class="{ 'has-error': form.anfabr.$dirty && form.anfabr.$error.required }">
             <label for="anfabr">Tip Conbustibil</label>
-            <input type="number" name="anfabr" id="anfabr" class="form-control" ng-model="vm.auto.anfabr" required />
+            <input type="text" name="anfabr" id="anfabr" class="form-control" ng-model="vm.cerere.combustibil" required />
             <span ng-show="form.anfabr.$dirty && form.anfabr.$error.required" class="help-block">anfabr is required</span>
         </div>
         
         <div class="form-group" ng-class="{ 'has-error': form.anfabr.$dirty && form.anfabr.$error.required }">
             <label for="anfabr">An fabricatie</label>
-            <input type="number" name="anfabr" id="anfabr" class="form-control" ng-model="vm.auto.anfabr" required />
+            <input type="text" name="anfabr" id="anfabr" class="form-control" ng-model="vm.cerere.anfabric" required />
             <span ng-show="form.anfabr.$dirty && form.anfabr.$error.required" class="help-block">anfabr is required</span>
         </div>
         
         <div class="input-group date form-group" ng-class="{ 'has-error': form.date.$dirty && form.date.$error.required }">
             <label for="date">Selectie Data</label>
-            <input type="date" name="date" id="date" class="form-control" ng-model="vm.auto.date" required />
+            <input type="date" name="date" id="date" class="form-control" ng-model="vm.cerere.date" required />
             <span ng-show="form.date.$dirty && form.date.$error.required" class="help-block">Serial is required</span>
         </div>
         
         <div class="form-group" ng-class="{ 'has-error': form.model.$dirty && form.model.$error.required }">
-            <label for="marca"> Durata: </label>
-            <select name="model" id="model" 
-                ng-options="option.name for option in vm.auto.modelAvailableOptions track by option.id" 
-                ng-model="vm.auto.model"></select>
+            <label for="durata"> Durata: </label>
+            <select name="durata" id="durata" 
+                ng-options="option.name for option in vm.auto.durataAvailableOptions track by option.id" 
+                ng-model="vm.cerere.durata"></select>
         </div>
         
         <div class="form-actions">

@@ -1,0 +1,44 @@
+<div class="smart-table-container">
+    <table st-table="rowCollection" st-safe-src="displayedCollection" class="table table-striped">
+    	<thead>
+        	<tr>
+        		<th colspan="5"><input st-search="" class="form-control" placeholder="cauta ..." type="text"/></th>
+        	</tr>
+        	<tr>
+        		<th st-sort="name">Nume</th>
+        		<th st-sort="username">Username</th>
+        		<th st-sort="email">Email</th>
+        		<th st-sort="phone">TeleFon</th>
+        		<th st-sort="role">Role</th>
+        	</tr>
+    	</thead>
+    	<tbody>
+        	<tr ng-repeat="row in rowCollection">
+        		<td>{{row.name}}</td>
+        		<td>{{row.username}}</td>
+        		<td>{{row.email}}</td>
+        		<td>{{row.phone}}</td>
+        		<td>{{row.role}}</td>
+        		<td>
+        			<button type="button" ng-click="send(row)" class="btn btn-sm btn-primary">
+        			    Schimba Rol
+        			</button>
+        			<button type="button" ng-click="view(row)" class="btn btn-sm btn-info">
+        			    Vizualizeaza
+        			</button>
+        			<button type="button" ng-click="view(row)" class="btn btn-sm btn-danger">
+        			    Sterge
+        			</button>
+        		</td>
+        	
+        	</tr>
+    	</tbody>
+    	<tfoot>
+            <tr>
+    		   	<td colspan="5" class="text-center">
+    				<div st-pagination="" st-items-by-page="5" st-displayed-pages="7"></div>
+    			</td>
+    		</tr>
+    	</tfoot>
+    </table>
+</div>

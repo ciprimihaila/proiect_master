@@ -11,24 +11,25 @@ require("./dbConnection").connect(
         
         // Load express
         var express = require ("express");
+        var morgan = require ("morgan");
         
         var app = express ();
-        
+
+
         app.all(function(req, res, next) {
             res.setHeader('Content-Type', 'application/json');
         
         });
         
-        app.post ('/', function (req, res)
+        app.use(express.static(__dirname + '/angular-seed/app'));
+
+        app.get('/', function (req, res)
         {
-            res.send (
-                JSON.stringify(
-                    {"test": "test"}
-                )
-            );
+            console.log(req);
+            var path = require('path');
+            res.sendFile(path.resolve('angular-seed/app/index.html'));
         });
-        
-        
+
         app.use (function (req, res)
         {
             res.send ("No page here, check the url");

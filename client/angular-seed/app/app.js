@@ -29,7 +29,7 @@ app.controller('NavCtrl', ['$scope','$location', function($scope,$location) {
         }
         return false;
     };
- 
+
 }]);
 
 app.config(['$routeProvider', function($routeProvider) {

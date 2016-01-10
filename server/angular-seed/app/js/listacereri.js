@@ -14,7 +14,7 @@ angular.module('myApp.listacereri', ['ngRoute', 'smart-table'])
   });
 }])
 
-.controller('ListaCereriCtrl', ['$scope', '$http', '$location', 'transferService', function($scope, $http, $location, transferService) {
+.controller('ListaCereriCtrl', ['$scope', '$http', '$location', 'transferService', '$route', function($scope, $http, $location, transferService, $route) {
     
     $scope.vm = this;
     $scope.vm.show = false;
@@ -49,7 +49,7 @@ angular.module('myApp.listacereri', ['ngRoute', 'smart-table'])
             } else if (data.status == 'ok'){
                 $scope.vm.message = data.message;
                 $scope.vm.show = true;
-                location.reload();
+                $route.reload();
             }
         });
         

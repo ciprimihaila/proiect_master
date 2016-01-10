@@ -14,7 +14,7 @@ angular.module('myApp.cerere', ['ngRoute', 'ngCookies'])
   });
 }])
 
-.controller('CerereCtrl', ['$scope', '$http', '$location', 'transferService', '$cookies', function($scope, $http, $location, transferService, $cookies) {
+.controller('CerereCtrl', ['$scope', '$http', '$location', 'transferService', '$cookies', '$route', function($scope, $http, $location, transferService, $cookies, $route) {
     $scope.vm = this;
     $scope.vm.readonly = false;
     $scope.vm.show = false;
@@ -32,8 +32,13 @@ angular.module('myApp.cerere', ['ngRoute', 'ngCookies'])
                 $location.path('/cerere');
                 $scope.vm.show = true;
             } else if (data.status == 'ok'){
-                $scope.vm.cerere ={};
-                $location.path(data.url);
+                
+               // $location.path('/cerere');
+                $route.reload();
+                $scope.vm.message = 'asdasd';
+                $scope.vm.show = true;
+                //$scope.vm.cerere ={};
+                //$location.path(data.url);
             }
                     
           });
@@ -56,7 +61,7 @@ angular.module('myApp.cerere', ['ngRoute', 'ngCookies'])
         }
     
         $scope.vm.cerere = {
-            marca: {id : '1 ' , name : "Alfa Rome"},
+            marca: {id : '1 ' , name : "Alfa Romeo"},
             tipauto:{id : '1 ' , name : "Autoturism"},
             durata:{id: '1', name: '3 luni'},
         };

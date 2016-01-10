@@ -10,7 +10,7 @@ angular.module('myApp.service', ['ngRoute'])
 }])
 
 
-.controller('ServiceCtrl', ['$scope','$http','$location', function($scope,$http,$location) {
+.controller('ServiceCtrl', ['$scope','$http','$location','$route', function($scope,$http,$location,$route) {
       $scope.vm = this;
       function send() {
         var data = JSON.stringify($scope.vm.service);
@@ -23,7 +23,10 @@ angular.module('myApp.service', ['ngRoute'])
                 $location.path('/service');
                 $scope.vm.show = true;
             } else if (data.status == 'ok'){
-                $location.path(data.url);
+                //$location.path(data.url);
+                $route.reload();
+                $scope.vm.message = 'sdsad';
+                $scope.vm.show = true;
             }
             
         });

@@ -141,7 +141,15 @@ app.controller('NavCtrl', ['$scope','$location', function($scope,$location) {
         }
         return false;
     };
-
+    
+    $scope.exit = function (){
+        console.log('exit....');
+        loggedUser = {
+                    name: 'test',
+                    permissions: ['NotAuth']
+        };
+    }
+    
 }]);
 
 app.config(['$routeProvider', function($routeProvider) {

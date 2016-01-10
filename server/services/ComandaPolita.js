@@ -8,46 +8,6 @@ var ObjectID = require('mongodb').ObjectID;
 module.exports.getRouter = function(collections) {
     var cerereCollection = collections['cerere'];
     var userCollection = collections['users'];
-    var daunaCollection = collections['dauna'];
-
-    
-    router.get('/cereri', function (req, res) {
-        console.log("get cerere");
-        
-        var cursorCerere = cerereCollection.find({cerereEmisa: false});
-        
-        var cerereArray = [];
-        cursorCerere.each(function(err, doc) {
-            if (err) {
-                helpers.sendErrorResponse(res, err, '/login');
-                return;
-            }
-            if (doc == null) {
-                helpers.sendOkResponse(res, cerereArray);
-                return;    
-            }
-            cerereArray.push(doc);
-        });
-    });
-    
-    router.post('/emitereCerere', function (req, res) {
-        console.log("post emitereCerere");
-        console.log(req.body);
-        var params = {
-            id: 'string'  
-        };
-        cerereCollection.updateOne(
-            {_id: new ObjectID(req.body.id)},
-            {'$set': {'cerereEmisa': true}},
-            function (err, result) {
-                if (err) {
-                    helpers.sendErrorResponse(res, err);
-                    return;
-                }
-                helpers.sendOkResponse(res, "Cerere emisa");
-            }
-        );
-    });
     
     router.post('/cerere', function (req, res) {
         console.log("post cerere");

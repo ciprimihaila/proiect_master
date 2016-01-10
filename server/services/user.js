@@ -61,7 +61,7 @@ module.exports.getRouter = function(collections) {
     
     
     router.post('/editRole', function(req, res) {
-        console.log("post deleteRole");
+        console.log("post editRole");
         console.log(req.body);
         var params = {
             'username': 'string',

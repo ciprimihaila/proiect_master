@@ -38,7 +38,7 @@
       <li ng-class="{ active: isActive('/listadaune')}" ng-show="isVisible('Broker')"><a href="#/listadaune">Lista Daune</a></li>
       <li ng-class="{ active: isActive('/usermanagement')}" ng-show="isVisible('Admin')"><a href="#/usermanagement">User Management</a></li>
       <li ng-class="{ active: isActive('/service')}" ng-show="isVisible('Admin')"><a href="#/service">Introducere Service</a></li>
-      <li ng-class="{ active: isActive('/')}" ng-show="isVisible('User,Admin,Broker')"><a href="#/login">Iesire</a></li>
+      <li ng-class="{ active: isActive('/')}" ng-show="isVisible('User,Admin,Broker')" ng-click="exit()"><a href="#/login">Iesire</a></li>
     </ul>
   </nav>
   <div ng-view></div>

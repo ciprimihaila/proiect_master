@@ -11,11 +11,12 @@ var storage = multer.diskStorage({
   filename: function (req, file, cb) {
     var extension = file.mimetype.split("/")[1];
     console.log(extension);
-    cb(null, Date.now() + "." +extension) //Appending .jpg
+    cb(null, file.originalname) //Appending .jpg
   }
 })
 
 var upload = multer({ storage: storage })
+
 
 module.exports.getRouter = function(collections) {
     
@@ -24,6 +25,12 @@ module.exports.getRouter = function(collections) {
         console.log("photo upload");
         console.log(req.file.mimetype);
         helpers.sendErrorResponse(res, "");
+    });
+    
+    router.use('/uploads/:fname', function(req, res){
+        console.log(req.params.fname);
+        res.sendFile("secondarytile.png", {root: __dirname + '/../uploads'});
+
     });
     
     return router;

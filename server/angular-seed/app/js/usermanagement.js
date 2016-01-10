@@ -14,7 +14,7 @@ angular.module('myApp.usermanagement', ['ngRoute', 'smart-table'])
   });
 }])
 
-.controller('UserManagementCtrl', ['$scope', '$http', '$location', 'transferService', '$uibModal', function($scope, $http, $location, transferService, $uibModal) {
+.controller('UserManagementCtrl', ['$route', '$scope', '$http', '$location', 'transferService', '$uibModal', function($route, $scope, $http, $location, transferService, $uibModal) {
     
     $scope.items = ['User', 'Broker', 'Admin'];
 
@@ -55,7 +55,20 @@ angular.module('myApp.usermanagement', ['ngRoute', 'smart-table'])
         });
         
         dialog.result.then(function (selectedItem) {
-            $scope.selected = selectedItem;
+            var data = JSON.stringify({username: row.username, role: selectedItem});
+                
+            var post = $http.post("/editRole", data);
+    
+            post.success(function(data, status) {
+                if (data.status == 'error'){
+                    $scope.vm.message = data.message;
+                    $location.path('/usermanagement');
+                    $scope.vm.show = true;
+                } else if (data.status == 'ok') {
+                   $route.reload();
+                }
+                    
+            });            
         },
         function () {
         });
@@ -73,7 +86,7 @@ angular.module('myApp.usermanagement', ['ngRoute', 'smart-table'])
                 $location.path('/usermanagement');
                 $scope.vm.show = true;
             } else if (data.status == 'ok') {
-                location.reload();
+                $route.reload();
             }
                 
         });

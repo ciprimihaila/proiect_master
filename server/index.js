@@ -31,6 +31,7 @@ require("./dbConnection").connect(
         app.use(bodyParser.urlencoded({ extended: true }));
         app.use(bodyParser.json());
 
+
         /* ## Return JSON ## */ 
         app.all(function(req, res, next) {
             res.setHeader('Content-Type', 'application/json');
@@ -39,11 +40,24 @@ require("./dbConnection").connect(
         /* ## Route files ## */
         var routes = [
             require("./services/angular"),
+            require('./services/Autentificare').getRouter(collections),
+            require('./services/AutorizareDespagubire').getRouter(collections),
             require('./services/cerere').getRouter(collections),
+            require('./services/ComandaPolita').getRouter(collections),
+            require('./services/ConstatareDauna').getRouter(collections),
             require('./services/dauna').getRouter(collections),
-            require('./services/user').getRouter(collections),
+            require('./services/EmiterePolita').getRouter(collections),
+            require('./services/EvaluareDauna').getRouter(collections),
+            require('./services/Inregistrare').getRouter(collections),
+            require('./services/InregistrareBroker').getRouter(collections),
+            require('./services/InregistrareServiceAuto').getRouter(collections),
+            require('./services/LivrarePolita').getRouter(collections),
+            require('./services/ProcesareOferte').getRouter(collections),
+            require('./services/RedirectareService').getRouter(collections),
+            require('./services/SelectareOferte').getRouter(collections),
             require('./services/serviceAuto').getRouter(collections),
-            require('./services/upload').getRouter(collections)
+            require('./services/upload').getRouter(collections),
+            require('./services/user').getRouter(collections)
         ];
         
         /* ## Load Routes ## */

@@ -14,8 +14,8 @@ angular.module('myApp.listadaune', ['ngRoute', 'smart-table'])
   });
 }])
 
-.controller('ListaDauneCtrl',  ['$scope', '$http', '$location', '$uibModal', 'transferService',
-                                        function($scope, $http, $location, $uibModal, transferService) {
+.controller('ListaDauneCtrl',  ['$scope', '$http', '$location', '$uibModal', 'transferService', '$route',
+                                        function($scope, $http, $location, $uibModal, transferService, $route) {
     // var vm = this;
      
     var gett = $http({
@@ -51,30 +51,28 @@ angular.module('myApp.listadaune', ['ngRoute', 'smart-table'])
         
         dialog.result.then(function (selectedItem) {
           if (selectedItem.length > 0){
+              
             var data = JSON.stringify(
                 {   idService: selectedItem[0]._id,
-                    idDauna: row.id
+                    idDauna: row._id
                 });
             
-        //   var post = $http.post("/emitereCerere", data);
+          var post = $http.post("/updateDauna", data);
                 
-        //   post.success(function(data, status) {
-        //         if (data.status == 'error'){
-        //             $scope.vm.message = data.message;
-        //             $scope.vm.show = true;
-        //             $location.path('/listacereripolite');
-        //         } else if (data.status == 'ok'){
-        //             $scope.vm.message = data.message;
-        //             $scope.vm.show = true;
-        //             location.reload();
-        //         }
-        //     });  
+          post.success(function(data, status) {
+                if (data.status == 'error'){
+                    
+                } else if (data.status == 'ok'){
+                    $route.reload();
+                }
+            });  
           }
            
           
         }, function () {
           console.log('Modal dismissed at: ' + new Date());
         });
+        $scope.vm.readonly = true;
     }
     
     $scope.view = function view(row) {
@@ -83,7 +81,7 @@ angular.module('myApp.listadaune', ['ngRoute', 'smart-table'])
     }
     
     $scope.rowCollection = collection;
-    $scope.displayedCollection = collection
+    $scope.displayedCollection = collection;
 }])
 
 .controller('ModalCtrl', function ($scope, $uibModalInstance, items, $http) {

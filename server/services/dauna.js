@@ -29,6 +29,7 @@ module.exports.getRouter = function(collections) {
             return;
         }
     
+        req.body.daunaConfirmata = false;
         daunaCollection.insertOne(req.body, function(err, response) {
             if (err) {
                 helpers.sendErrorResponse(res, err, '/register');
@@ -41,7 +42,7 @@ module.exports.getRouter = function(collections) {
     router.get('/daune', function(req, res) {
         console.log("get dauna");
     
-        var cursorDauna = daunaCollection.find();
+        var cursorDauna = daunaCollection.find({daunaConfirmata: false});
         
         var dauneArray = [];
         
@@ -71,8 +72,7 @@ module.exports.getRouter = function(collections) {
         };
         daunaCollection.updateOne(
             {_id: new ObjectID(req.body.idDauna)},
-            {'$set': {'daunaConfirmata': true}},
-            {'$set': {'serviceId': req.body.idService}},
+            {'$set': {'daunaConfirmata': true, 'serviceId': req.body.idService}},
             function (err, result) {
                 if (err) {
                     helpers.sendErrorResponse(res, err);

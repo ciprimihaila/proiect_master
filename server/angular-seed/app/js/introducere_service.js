@@ -19,14 +19,18 @@ angular.module('myApp.service', ['ngRoute'])
             
         post.success(function(data, status) {
             if (data.status == 'error'){
+                $scope.vm.class = "alert alert-danger"
                 $scope.vm.message = data.message;
                 $location.path('/service');
                 $scope.vm.show = true;
             } else if (data.status == 'ok'){
                 //$location.path(data.url);
-                $route.reload();
-                $scope.vm.message = 'sdsad';
+               // $route.reload();
+                $scope.vm.class = "alert alert-success"
+                $scope.vm.message = data.message;
                 $scope.vm.show = true;
+                setTimeout(function(){ $route.reload(); }, 2000);
+                
             }
             
         });

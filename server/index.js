@@ -42,10 +42,8 @@ require("./dbConnection").connect(
             require("./services/angular"),
             require('./services/Autentificare').getRouter(collections),
             require('./services/AutorizareDespagubire').getRouter(collections),
-            require('./services/cerere').getRouter(collections),
             require('./services/ComandaPolita').getRouter(collections),
             require('./services/ConstatareDauna').getRouter(collections),
-            require('./services/dauna').getRouter(collections),
             require('./services/EmiterePolita').getRouter(collections),
             require('./services/EvaluareDauna').getRouter(collections),
             require('./services/Inregistrare').getRouter(collections),
@@ -55,9 +53,8 @@ require("./dbConnection").connect(
             require('./services/ProcesareOferte').getRouter(collections),
             require('./services/RedirectareService').getRouter(collections),
             require('./services/SelectareOferte').getRouter(collections),
-            require('./services/serviceAuto').getRouter(collections),
             require('./services/upload').getRouter(collections),
-            require('./services/user').getRouter(collections)
+            require('./services/UserManagement').getRouter(collections)
         ];
         
         /* ## Load Routes ## */

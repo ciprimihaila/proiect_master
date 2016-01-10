@@ -35,7 +35,7 @@ module.exports.getRouter = function(collections) {
                 helpers.sendErrorResponse(res, err, '/register');
                 return;
             }
-            helpers.sendOkResponse(res,  'Constatare dauna adaugata', '/login');
+            helpers.sendOkResponse(res,  'Constatare dauna adaugata', '/introduceredauna');
         });
     });
     

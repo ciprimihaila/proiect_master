@@ -1,6 +1,6 @@
 <div class="col-md-6 col-md-offset-3">
     <h2 ng-hide="vm.readonly">Achizitionare Polita RCA</h2>
-    <div id="messages" class="alert alert-danger" ng-show="vm.show"><p>{{ vm.message }}</p></div>
+    <div id="messages" ng-class="vm.class" ng-show="vm.show"><p>{{ vm.message }}</p></div>
     <form name="form" ng-submit="vm.send()" role="form">
         <h3>Date Personale: </h3>
         <div class="form-group" ng-class="{ 'has-error': form.cnp.$dirty && form.cnp.$error.required }">

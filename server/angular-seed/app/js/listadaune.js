@@ -72,7 +72,6 @@ angular.module('myApp.listadaune', ['ngRoute', 'smart-table'])
         }, function () {
           console.log('Modal dismissed at: ' + new Date());
         });
-        $scope.vm.readonly = true;
     }
     
     $scope.view = function view(row) {

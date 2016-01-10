@@ -52,10 +52,14 @@ angular.module('myApp.dauna', ['ngRoute', 'ngFileUpload'])
           post.success(function(data, status) {
             if (data.status == 'error'){
               $scope.vm.message = data.message;
-              $location.path('/dauna');
+              $location.path('/introduceredauna');
               $scope.vm.show = true;
+              $scope.vm.msgclass = "alert alert-danger";
             } else if (data.status == 'ok'){
-              $location.path(data.url);
+                $scope.vm.message = 'Dauna inregistrata cu succes';
+                $scope.vm.readonly = true;
+                $scope.vm.show = true;
+                $scope.vm.msgclass = "alert alert-success";
             }
           });
         

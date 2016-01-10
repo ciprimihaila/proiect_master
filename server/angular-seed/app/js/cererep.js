@@ -29,16 +29,16 @@ angular.module('myApp.cerere', ['ngRoute', 'ngCookies'])
           post.success(function(data, status) {
             if (data.status == 'error'){
                 $scope.vm.message = data.message;
+                $scope.vm.class = "alert alert-danger";
                 $location.path('/cerere');
                 $scope.vm.show = true;
             } else if (data.status == 'ok'){
-                
-               // $location.path('/cerere');
-                $route.reload();
-                $scope.vm.message = 'asdasd';
+                $scope.vm.class = "alert alert-success";
+               
+                $scope.vm.message = data.message;
                 $scope.vm.show = true;
-                //$scope.vm.cerere ={};
-                //$location.path(data.url);
+                setTimeout(function(){ $route.reload(); }, 2000);
+               
             }
                     
           });

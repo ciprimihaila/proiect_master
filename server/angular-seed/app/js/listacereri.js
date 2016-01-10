@@ -14,29 +14,50 @@ angular.module('myApp.listacereri', ['ngRoute', 'smart-table'])
   });
 }])
 
-.controller('ListaCereriCtrl', ['$scope', function($scope) {
-      console.log("asdadassdasdadas");
-     // console.log(this.vm.username);
-      // var vm = this;
-     var collection = [
-        {firstName: 'Laurent', lastName: 'Renard', address: 'strada judet....', auto: 'Dacia Logan', date: new Date('1987-05-21')},
-        {firstName: 'Blandine', lastName: 'Faivre', address: 'strada judet....', auto: 'Opel Astra', date: new Date('1987-04-25')},
-        {firstName: 'Francoise', lastName: 'Frere', address: 'strada judet....', auto: 'BMW Seria 5', date: new Date('1955-08-27')},
-        {firstName: 'Laurent', lastName: 'Renard', address: 'strada judet....', auto: 'Dacia Logan', date: new Date('1987-05-21')},
-        {firstName: 'Blandine', lastName: 'Faivre', address: 'strada judet....', auto: 'Opel Astra', date: new Date('1987-04-25')},
-        {firstName: 'Francoise', lastName: 'Frere', address: 'strada judet....', auto: 'BMW Seria 5', date: new Date('1955-08-27')},
-        {firstName: 'Laurent', lastName: 'Renard', address: 'strada judet....', auto: 'Dacia Logan', date: new Date('1987-05-21')},
-        {firstName: 'Blandine', lastName: 'Faivre', address: 'strada judet....', auto: 'Opel Astra', date: new Date('1987-04-25')},
-        {firstName: 'Francoise', lastName: 'Frere', address: 'strada judet....', auto: 'BMW Seria 5', date: new Date('1955-08-27')}
-    ];
+.controller('ListaCereriCtrl', ['$scope', '$http', '$location', 'transferService', function($scope, $http, $location, transferService) {
     
-    
+    $scope.vm = this;
+    $scope.vm.show = false;
+    var gett = $http({
+        url: "/cereri",
+        method: "GET",
+    });
+    var collection = [];      
+    gett.success(function(data, status) {
+        if (data.status == 'error'){
+            $scope.vm.message = data.message;
+            $location.path('/listacereripolite');
+            $scope.vm.show = true;
+        } else if (data.status == 'ok'){
+            for (var entry in data.message) {
+                console.log(data.message[entry]);
+                collection.push(data.message[entry]);
+            }
+        }
+    });
+   
     $scope.send = function send(row) {
-        console.log('send' + row.firstName);
+        var data = JSON.stringify({id: row._id});
+            
+        var post = $http.post("/emitereCerere", data);
+            
+        post.success(function(data, status) {
+            if (data.status == 'error'){
+                $scope.vm.message = data.message;
+                $scope.vm.show = true;
+                $location.path('/listacereripolite');
+            } else if (data.status == 'ok'){
+                $scope.vm.message = data.message;
+                $scope.vm.show = true;
+                location.reload();
+            }
+        });
+        
     }
     
     $scope.view = function view(row) {
-        console.log('view' + row.firstName);
+        transferService.sendCerere(row);
+        $location.path("/cerere");
     }
     
     $scope.rowCollection = collection;

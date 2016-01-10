@@ -10,17 +10,25 @@ angular.module('myApp.service', ['ngRoute'])
 }])
 
 
-.controller('ServiceCtrl', ['$scope', function($scope) {
-      console.log("asdadassdasdadas");
-     // console.log(this.vm.username);
-      // var vm = this;
+.controller('ServiceCtrl', ['$scope','$http','$location', function($scope,$http,$location) {
       $scope.vm = this;
-      function register() {
-            console.log("register");
-            console.log($scope.vm.service.name);
-            console.log($scope.vm.service.phone);
+      function send() {
+        var data = JSON.stringify($scope.vm.service);
+            
+        var post = $http.post("/serviceAuto", data);
+            
+        post.success(function(data, status) {
+            if (data.status == 'error'){
+                $scope.vm.message = data.message;
+                $location.path('/service');
+                $scope.vm.show = true;
+            } else if (data.status == 'ok'){
+                $location.path(data.url);
+            }
+            
+        });
       };
-      $scope.vm.register = register;
+      $scope.vm.send = send;
  
  
         

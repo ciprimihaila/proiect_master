@@ -1,6 +1,6 @@
 <div class="col-md-6 col-md-offset-3">
     <h2>Introducere Service</h2>
-    
+    <div id="messages" class="alert alert-danger" ng-show="vm.show"><p>{{ vm.message }}</p></div>
     <form name="form" ng-submit="vm.send()" role="form">
         <div class="form-group" ng-class="{ 'has-error': form.name.$dirty && form.name.$error.required }">
             <label for="name">Nume Service</label>
@@ -16,13 +16,13 @@
         
         <div class="form-group" ng-class="{ 'has-error': form.contract.$dirty && form.contract.$error.required }">
             <label for="contract">Numar Contract</label>
-            <input type="number" name="name" id="name" class="form-control" ng-model="vm.service.contract" required />
+            <input type="text" name="name" id="name" class="form-control" ng-model="vm.service.contract" required />
             <span ng-show="form.contract.$dirty && form.contract.$error.required" class="help-block">Name is required</span>
         </div>
         
         <div class="form-group" ng-class="{ 'has-error': form.adress.$dirty && form.adress.$error.required }">
             <label for="adress">Adresa</label>
-            <textarea ng-model="vm.service.adress" name="adress" rows="5" cols="50"
+            <textarea ng-model="vm.service.address" name="adress" rows="5" cols="50"
                         class="form-control" id="adresssg" required> </textarea>
             <span ng-show="form.adress.$dirty && form.adress.$error.required" class="help-block">adress is required</span>
         </div>
@@ -35,7 +35,7 @@
          
         <div class="form-group" ng-class="{ 'has-error': form.phone.$dirty && form.phone.$error.required }">
             <label for="phone">Numar Telefon</label>
-            <input type="number" name="phone" id="phone" class="form-control" ng-model="vm.service.phone" required />
+            <input type="text" name="phone" id="phone" class="form-control" ng-model="vm.service.phone" required />
             <span ng-show="form.phone.$dirty && form.phone.$error.required" class="help-block">Name is required</span>
         </div>
           

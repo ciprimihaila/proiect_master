@@ -1,7 +1,7 @@
 <div class="col-md-6 col-md-offset-3">
 
     <h2>Notificare dauna RCA</h2>
-    
+    <div id="messages" class="alert alert-danger" ng-show="vm.show"><p>{{ vm.message }}</p></div> 
     <form name="form" ng-submit="vm.send()" role="form">
         
         
@@ -45,9 +45,9 @@
         <h3>Informatii eveniment: </h3>
         <div class="input-group date form-group" ng-class="{ 'has-error': form.date.$dirty && form.date.$error.required }">
             <label for="date">Data si ora producere eveniment</label>
-            <input type="date" name="date" id="date" class="form-control" ng-model="vm.dauna.date" />
+            <input type="date" name="date" id="date" class="form-control" ng-model="vm.dauna.date" required/>
             </br>
-            <input type="time" name="time" id="time" class="form-control" ng-model="vm.dauna.time" />
+            <input type="time" name="time" id="time" class="form-control" ng-model="vm.dauna.time" required/>
             <span ng-show="form.date.$dirty && form.date.$error.required" class="help-block">Date and time are required</span>
         </div>
         <div class="form-group" ng-class="{ 'has-error': form.location.$dirty && form.location.$error.required }">
@@ -61,12 +61,24 @@
                         class="form-control" id="description" required> </textarea>
             <span ng-show="form.description.$dirty && form.description.$error.required" class="help-block">adress is required</span>
         </div>
-        <div class="form-group" ng-class="{ 'has-error': form.attachments.$dirty && form.attachments.$error.required }">
-            <label for="attachments">Atasamente</label>
-            <input type="file" name="attachments" id="attachments" class="form-control" ng-model="vm.dauna.attachments"/>
-            <span ng-show="form.attachments.$dirty && form.attachments.$error.required" class="help-block">attachments is required</span>
-        </div>
-        
+        <form name="myForm">
+            Photo:
+                <input type="file" ngf-select ng-model="picFile" name="file"    
+                     accept="image/*" ngf-max-size="2MB" required
+                     ngf-model-invalid="errorFiles">
+                <i ng-show="myForm.file.$error.required">*required</i><br>
+                <i ng-show="myForm.file.$error.maxSize">File too large 
+                  {{errorFiles[0].size / 1000000|number:1}}MB: max 2M</i>
+                <img ng-show="myForm.file.$valid" ngf-thumbnail="picFile" class="thumb"> <button ng-click="picFile = null" ng-show="picFile">Remove</button>
+                <br>
+                <button ng-click="uploadPic(picFile)">Submit</button>
+                <span class="progress" ng-show="picFile.progress >= 0">
+                <div style="width:{{picFile.progress}}%" 
+                    ng-bind="picFile.progress + '%'"></div>
+                </span>
+                <span ng-show="picFile.result">Upload Successful</span>
+                <span class="err" ng-show="errorMsg">{{errorMsg}}</span>
+        </form>
         <!--<h3>Date contact: </h3>-->
         <!--<div class="form-group" ng-class="{ 'has-error': form.email.$dirty && form.email.$error.required }">-->
         <!--    <label for="email">Email</label>-->

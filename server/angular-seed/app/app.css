@@ -28,3 +28,8 @@
   content: "";
   padding: 0;
 }
+
+.st-selected{
+  border-left:4px solid black;
+  background-color: #ffd800;
+}

@@ -1,25 +1,25 @@
 <div class="col-md-6 col-md-offset-3">
-    <h2>Achizitionare Polita RCA</h2>
-    
+    <h2 ng-hide="vm.readonly">Achizitionare Polita RCA</h2>
+    <div id="messages" class="alert alert-danger" ng-show="vm.show"><p>{{ vm.message }}</p></div>
     <form name="form" ng-submit="vm.send()" role="form">
         <h3>Date Personale: </h3>
         <div class="form-group" ng-class="{ 'has-error': form.cnp.$dirty && form.cnp.$error.required }">
             <label for="cnp">CNP</label>
-            <input type="number" name="cnp" id="cnp" class="form-control" ng-model="vm.cerere.cnp" required />
+            <input type="number" name="cnp" id="cnp" class="form-control" ng-model="vm.cerere.cnp"  ng-readonly="vm.readonly" required />
             <span ng-show="form.cnp.$dirty && form.cnp.$error.required" class="help-block">CNP is required</span>
         </div>
         
         <div class="form-group" ng-class="{ 'has-error': form.password.$dirty && form.password.$error.required }">
             <label for=radio1>Persoana Fizica</label>
-            <input type="radio" id="radio1" name="fizica" value="checked" ng-model="vm.cerere.persfizica">
+            <input type="radio" id="radio1" name="fizica" value="checked" ng-model="vm.cerere.persfizica" ng-readonly="vm.readonly">
             <label for=radio2>Persoana Juridica</label>
-            <input type="radio" id="radio2" name="juridica" value="checked" ng-model="vm.cerere.persjuridica">
+            <input type="radio" id="radio2" name="juridica" value="checked" ng-model="vm.cerere.persjuridica" ng-readonly="vm.readonly">
         </div>
         
         <div class="form-group" ng-class="{ 'has-error': form.adress.$dirty && form.adress.$error.required }">
             <label for="adress">Adresa</label>
             <textarea ng-model="vm.cerere.address" name="adress" rows="5" cols="50"
-                        class="form-control" id="adresssg" required> </textarea>
+                        class="form-control" id="adresssg" required ng-readonly="vm.readonly"> </textarea>
             <span ng-show="form.adress.$dirty && form.adress.$error.required" class="help-block">adress is required</span>
         </div>
 
@@ -29,49 +29,49 @@
             <label for="tipauto">Tip Auto: </label>
             <select name="tipauto" id="tipauto" 
                 ng-options="option.name for option in vm.auto.tipAutoAvailableOptions track by option.id" 
-                ng-model="vm.cerere.tipauto"></select>
+                ng-model="vm.cerere.tipauto" ng-disabled="vm.readonly"></select>
         </div>
         
         <div class="form-group" ng-class="{ 'has-error': form.marca.$dirty && form.marca.$error.required }">
             <label for="marca"> Marca Auto: </label>
             <select name="marca" id="marca" 
                 ng-options="option.name for option in vm.auto.marcaAvailableOptions track by option.id" 
-                ng-model="vm.cerere.marca"></select>
+                ng-model="vm.cerere.marca" ng-disabled="vm.readonly"></select>
         </div>
         
         <div class="form-group" ng-class="{ 'has-error': form.serie.$dirty && form.serie.$error.required }">
             <label for="model">Model Auto:</label>
-            <input type="text" name="model" id="model" class="form-control" ng-model="vm.cerere.model" required />
+            <input type="text" name="model" id="model" class="form-control" ng-model="vm.cerere.model" required ng-readonly="vm.readonly"/>
             <span ng-show="form.model.$dirty && form.model.$error.required" class="help-block">Serial is required</span>
         </div>
         
        
         <div class="form-group" ng-class="{ 'has-error': form.power.$dirty && form.power.$error.required }">
             <label for="power">Putere</label>
-            <input type="text" name="power" id="power" class="form-control" ng-model="vm.cerere.power" required />
+            <input type="text" name="power" id="power" class="form-control" ng-model="vm.cerere.power" required ng-readonly="vm.readonly"/>
             <span ng-show="form.power.$dirty && form.power.$error.required" class="help-block">Power is required</span>
         </div>
         <div class="form-group" ng-class="{ 'has-error': form.serie.$dirty && form.serie.$error.required }">
             <label for="serie">Numar inmatriculare</label>
-            <input type="text" name="serie" id="serie" class="form-control" ng-model="vm.cerere.serie" required />
+            <input type="text" name="serie" id="serie" class="form-control" ng-model="vm.cerere.serie" ng-readonly="vm.readonly" required />
             <span ng-show="form.serie.$dirty && form.serie.$error.required" class="help-block">Serial is required</span>
         </div>
         
         <div class="form-group" ng-class="{ 'has-error': form.anfabr.$dirty && form.anfabr.$error.required }">
             <label for="anfabr">Tip Conbustibil</label>
-            <input type="text" name="anfabr" id="anfabr" class="form-control" ng-model="vm.cerere.combustibil" required />
+            <input type="text" name="anfabr" id="anfabr" class="form-control" ng-model="vm.cerere.combustibil" ng-readonly="vm.readonly" required />
             <span ng-show="form.anfabr.$dirty && form.anfabr.$error.required" class="help-block">anfabr is required</span>
         </div>
         
         <div class="form-group" ng-class="{ 'has-error': form.anfabr.$dirty && form.anfabr.$error.required }">
             <label for="anfabr">An fabricatie</label>
-            <input type="text" name="anfabr" id="anfabr" class="form-control" ng-model="vm.cerere.anfabric" required />
+            <input type="text" name="anfabr" id="anfabr" class="form-control" ng-model="vm.cerere.anfabric" ng-readonly="vm.readonly" required />
             <span ng-show="form.anfabr.$dirty && form.anfabr.$error.required" class="help-block">anfabr is required</span>
         </div>
         
         <div class="input-group date form-group" ng-class="{ 'has-error': form.date.$dirty && form.date.$error.required }">
             <label for="date">Selectie Data</label>
-            <input type="date" name="date" id="date" class="form-control" ng-model="vm.cerere.date" required />
+            <input type="date" name="date" id="date" class="form-control" ng-model="vm.cerere.date" ng-readonly="vm.readonly" required />
             <span ng-show="form.date.$dirty && form.date.$error.required" class="help-block">Serial is required</span>
         </div>
         
@@ -79,10 +79,10 @@
             <label for="durata"> Durata: </label>
             <select name="durata" id="durata" 
                 ng-options="option.name for option in vm.auto.durataAvailableOptions track by option.id" 
-                ng-model="vm.cerere.durata"></select>
+                ng-model="vm.cerere.durata" ng-disabled="vm.readonly"></select>
         </div>
         
-        <div class="form-actions">
+        <div class="form-actions" ng-hide="vm.readonly">
             <button type="submit" ng-disabled="form.$invalid || vm.dataLoading" class="btn btn-primary">Trimite</button>
             <img ng-if="vm.dataLoading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
             <a href="#/login" class="btn btn-link">Renunta</a>

@@ -5,32 +5,28 @@
         		<th colspan="5"><input st-search="" class="form-control" placeholder="cauta ..." type="text"/></th>
         	</tr>
         	<tr>
-        		<th st-sort="firstName">Nume</th>
-        		<th st-sort="lastName">Prenume</th>
-        		<th st-sort="address">Adresa</th>
-        		<th st-sort="auto">Automobil</th>
+        		<th st-sort="firstName">Username</th>
+        		<th st-sort="polita">Polita</th>
+        		<th st-sort="location">Locatie</th>
+        		<th st-sort="marca">Marca</th>
         		<th st-sort="date">Data</th>
         	</tr>
     	</thead>
     	<tbody>
         	<tr ng-repeat="row in rowCollection">
-        		<td>{{row.firstName}}</td>
-        		<td>{{row.lastName}}</td>
-        		<td>{{row.address}}</td>
-        		<td>{{row.auto}}</td>
+        	    <td>{{row.username}}</td>
+        	    <td>{{row.polita}}</td>
+        		<td>{{row.location}}</td>
+        		<td>{{row.marca.name}}</td>
         		<td>{{row.date}}</td>
         		<td>
         			<button type="button" ng-click="send(row)" class="btn btn-sm btn-success">
-        			    Programeaza la vizualizare / Trimite in service
-        			</button>
-        			<button type="button" ng-click="send(row)" class="btn btn-sm btn-success">
-        			    Aproba
+        			    Trimitere in service
         			</button>
         			<button type="button" ng-click="view(row)" class="btn btn-sm btn-info">
         			    Vizualizeaza
         			</button>
         		</td>
-        	
         	</tr>
     	</tbody>
     	<tfoot>

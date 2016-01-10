@@ -5,7 +5,8 @@
         		<th colspan="5"><input st-search="" class="form-control" placeholder="cauta ..." type="text"/></th>
         	</tr>
         	<tr>
-        		<th st-sort="name">Nume</th>
+        		<th st-sort="firstName">Prenume</th>
+        		<th st-sort="lastName">Nume</th>
         		<th st-sort="username">Username</th>
         		<th st-sort="email">Email</th>
         		<th st-sort="phone">TeleFon</th>
@@ -14,19 +15,17 @@
     	</thead>
     	<tbody>
         	<tr ng-repeat="row in rowCollection">
-        		<td>{{row.name}}</td>
+        		<td>{{row.firstName}}</td>
+        		<td>{{row.lastName}}</td>
         		<td>{{row.username}}</td>
         		<td>{{row.email}}</td>
         		<td>{{row.phone}}</td>
         		<td>{{row.role}}</td>
         		<td>
-        			<button type="button" ng-click="send(row)" class="btn btn-sm btn-primary">
+        			<button type="button" ng-click="changeRole(row)" class="btn btn-sm btn-primary">
         			    Schimba Rol
         			</button>
-        			<button type="button" ng-click="view(row)" class="btn btn-sm btn-info">
-        			    Vizualizeaza
-        			</button>
-        			<button type="button" ng-click="view(row)" class="btn btn-sm btn-danger">
+        			<button type="button" ng-click="deleteUser(row)" class="btn btn-sm btn-danger">
         			    Sterge
         			</button>
         		</td>

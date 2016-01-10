@@ -7,38 +7,114 @@ angular.module('myApp.listadaune', ['ngRoute', 'smart-table'])
     templateUrl: 'views/listadaune.html',
     controller: 'ListaDauneCtrl',
     access: {
-        loginRequired: true,
-        requiredPermissions: ['Broker'],
-        permissionType: 'AtLeastOne'
+        // loginRequired: true,
+        // requiredPermissions: ['Broker'],
+        // permissionType: 'AtLeastOne'
     }
   });
 }])
 
-.controller('ListaDauneCtrl', ['$scope', function($scope) {
-      console.log("asdadassdasdadas");
-     // console.log(this.vm.username);
-      // var vm = this;
-     var collection = [
-        {firstName: 'Laurent', lastName: 'Renard', address: 'strada judet....', auto: 'Dacia Logan', date: new Date('1987-05-21')},
-        {firstName: 'Blandine', lastName: 'Faivre', address: 'strada judet....', auto: 'Opel Astra', date: new Date('1987-04-25')},
-        {firstName: 'Francoise', lastName: 'Frere', address: 'strada judet....', auto: 'BMW Seria 5', date: new Date('1955-08-27')},
-        {firstName: 'Laurent', lastName: 'Renard', address: 'strada judet....', auto: 'Dacia Logan', date: new Date('1987-05-21')},
-        {firstName: 'Blandine', lastName: 'Faivre', address: 'strada judet....', auto: 'Opel Astra', date: new Date('1987-04-25')},
-        {firstName: 'Francoise', lastName: 'Frere', address: 'strada judet....', auto: 'BMW Seria 5', date: new Date('1955-08-27')},
-        {firstName: 'Laurent', lastName: 'Renard', address: 'strada judet....', auto: 'Dacia Logan', date: new Date('1987-05-21')},
-        {firstName: 'Blandine', lastName: 'Faivre', address: 'strada judet....', auto: 'Opel Astra', date: new Date('1987-04-25')},
-        {firstName: 'Francoise', lastName: 'Frere', address: 'strada judet....', auto: 'BMW Seria 5', date: new Date('1955-08-27')}
-    ];
+.controller('ListaDauneCtrl',  ['$scope', '$http', '$location', '$uibModal', 'transferService',
+                                        function($scope, $http, $location, $uibModal, transferService) {
+    // var vm = this;
+     
+    var gett = $http({
+        url: "/daune",
+        method: "GET",
+    });
+    var collection = [];      
+    gett.success(function(data, status) {
+        if (data.status == 'error'){
+            $scope.vm.message = data.message;
+            $location.path('/listadaune');
+            $scope.vm.show = true;
+        } else if (data.status == 'ok'){
+            for (var entry in data.message) {
+                console.log(data.message[entry]);
+                collection.push(data.message[entry]);
+            }
+        }
+    });
     
     
     $scope.send = function send(row) {
-        console.log('send' + row.firstName);
+        var dialog = $uibModal.open({
+          animation: $scope.animationsEnabled,
+          templateUrl: 'views/popupview.html',
+          controller: 'ModalCtrl',
+          resolve: {
+            items: function () {
+              return {};
+            }
+          }
+        });
+        
+        dialog.result.then(function (selectedItem) {
+          if (selectedItem.length > 0){
+            var data = JSON.stringify(
+                {   idService: selectedItem[0]._id,
+                    idDauna: row.id
+                });
+            
+        //   var post = $http.post("/emitereCerere", data);
+                
+        //   post.success(function(data, status) {
+        //         if (data.status == 'error'){
+        //             $scope.vm.message = data.message;
+        //             $scope.vm.show = true;
+        //             $location.path('/listacereripolite');
+        //         } else if (data.status == 'ok'){
+        //             $scope.vm.message = data.message;
+        //             $scope.vm.show = true;
+        //             location.reload();
+        //         }
+        //     });  
+          }
+           
+          
+        }, function () {
+          console.log('Modal dismissed at: ' + new Date());
+        });
     }
     
     $scope.view = function view(row) {
-        console.log('view' + row.firstName);
+        transferService.sendDauna(row);
+        $location.path("/introduceredauna");
     }
     
     $scope.rowCollection = collection;
     $scope.displayedCollection = collection
-}]);
+}])
+
+.controller('ModalCtrl', function ($scope, $uibModalInstance, items, $http) {
+    var gett = $http({
+        url: "/serviceuriauto",
+        method: "GET",
+    });
+    var collection = [];      
+    gett.success(function(data, status) {
+        if (data.status == 'error'){
+            //todo
+        } else if (data.status == 'ok'){
+            for (var entry in data.message) {
+                console.log(data.message[entry]);
+                collection.push(data.message[entry]);
+            }
+        }
+    });
+    $scope.rowCollection = collection;
+    $scope.displayedCollection = collection
+    $scope.modal = [];
+    $scope.modal.title = "Selectie Service";
+
+      $scope.ok = function () {
+        var selected = $scope.rowCollection.filter(function(item){
+             return item.isSelected === true;
+        })
+        $uibModalInstance.close(selected);
+      };
+    
+      $scope.cancel = function () {
+        $uibModalInstance.dismiss('cancel');
+      };
+});

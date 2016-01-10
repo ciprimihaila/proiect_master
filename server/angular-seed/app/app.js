@@ -3,6 +3,7 @@
 // Declare app level module which depends on views, and components
 var app = angular.module('myApp', [
   'ngRoute',
+  'ui.bootstrap',
   'myApp.login',
   'myApp.register',
   'myApp.cerere',
@@ -24,7 +25,7 @@ var tipAuto =[
         {id : '6 ' , name : "Tractor"    }
     ];
 
-var carBrands = [{id : '1 ' , name : "Alfa Rome",    },
+var carBrands = [{id : '1 ' , name : "Alfa Romeo",    },
 {id : '2 ' , name : "Aston Martin",  },
 {id : '3 ' , name : "Audi",         },
 {id : '4 ' , name : "Bentley",      },
@@ -33,7 +34,7 @@ var carBrands = [{id : '1 ' , name : "Alfa Rome",    },
 {id : '7 ' , name : "Bugatti",      },
 {id : '8 ' , name : "Cadillac",      },
 {id : '9 ' , name : "Chevrolet",    },
-{id : '10' , name : "Chryslee",      },
+{id : '10' , name : "Chrysler",      },
 {id : '11' , name : "Citroen",      },
 {id : '12' , name : "Corvette",      },
 {id : '13' , name : "DAF",          },
@@ -68,7 +69,7 @@ var carBrands = [{id : '1 ' , name : "Alfa Rome",    },
 {id : '42' , name : "Maybach",      },
 {id : '43' , name : "Mazda",        },
 {id : '44' , name : "McLaren",      },
-{id : '45' , name : "Mercede",      },
+{id : '45' , name : "Mercedes",      },
 {id : '46' , name : "Mercedes-Benz",},
 {id : '47' , name : "Mini",         },
 {id : '48' , name : "Mitsubishi",    },
@@ -93,6 +94,39 @@ var carBrands = [{id : '1 ' , name : "Alfa Rome",    },
 {id : '67' , name : "Volkswagen",    },
 {id : '68' , name : "Volvo"         }];
 
+
+app.service('transferService', function() {
+  var cerere = null;
+  var dauna = null;
+  
+  var sendCerere = function(newObj) {
+      cerere = newObj;
+  };
+  
+  var getCerere = function() {
+      var result = cerere;
+      cerere = null;
+      return result;
+  };
+  
+  var sendDauna = function (newObj) {
+      dauna = newObj;
+  }
+  
+  var getDauna = function(){
+      var rez = dauna;
+      dauna = null;
+      return rez;
+  }
+
+  return {
+    sendCerere: sendCerere,
+    getCerere: getCerere,
+    sendDauna: sendDauna,
+    getDauna : getDauna
+  };
+
+});
 
 app.controller('NavCtrl', ['$scope','$location', function($scope,$location) {
     console.log("NavCtrl");

@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('myApp.login', ['ngRoute'])
+angular.module('myApp.login', ['ngRoute', 'ngCookies'])
 
 .config(['$routeProvider', function($routeProvider) {
   $routeProvider.when('/login', {
@@ -9,7 +9,7 @@ angular.module('myApp.login', ['ngRoute'])
   });
 }])
 
-.controller('LoginCtrl', ['$scope', '$location', '$http', function($scope, $location, $http) {
+.controller('LoginCtrl', ['$scope', '$location', '$http', '$cookies', function($scope, $location, $http, $cookies) {
       
       $scope.vm = this;
       $scope.vm.show = false;
@@ -32,8 +32,9 @@ angular.module('myApp.login', ['ngRoute'])
                 } else if (data.status == 'ok'){
                     loggedUser = {
                         name:  $scope.vm.username,
-                        permissions: [data.role]
+                        permissions: [data.message.role]
                     };
+                    $cookies.put("username", $scope.vm.username);
                     $location.path(data.url);
                 }
                 

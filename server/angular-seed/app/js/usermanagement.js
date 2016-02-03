@@ -7,9 +7,9 @@ angular.module('myApp.usermanagement', ['ngRoute', 'smart-table'])
     templateUrl: 'views/usermanagement.html',
     controller: 'UserManagementCtrl',
     access: {
-        // loginRequired: true,
-        // requiredPermissions: ['Admin'],
-        // permissionType: 'AtLeastOne'
+        loginRequired: true,
+        requiredPermissions: ['Admin'],
+        permissionType: 'AtLeastOne'
     }
   });
 }])

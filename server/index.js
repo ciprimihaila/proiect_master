@@ -40,21 +40,12 @@ require("./dbConnection").connect(
         /* ## Route files ## */
         var routes = [
             require("./services/angular"),
-            require('./services/Autentificare').getRouter(collections),
-            require('./services/AutorizareDespagubire').getRouter(collections),
-            require('./services/ComandaPolita').getRouter(collections),
-            require('./services/ConstatareDauna').getRouter(collections),
-            require('./services/EmiterePolita').getRouter(collections),
-            require('./services/EvaluareDauna').getRouter(collections),
-            require('./services/Inregistrare').getRouter(collections),
-            require('./services/InregistrareBroker').getRouter(collections),
-            require('./services/InregistrareServiceAuto').getRouter(collections),
-            require('./services/LivrarePolita').getRouter(collections),
-            require('./services/ProcesareOferte').getRouter(collections),
-            require('./services/RedirectareService').getRouter(collections),
-            require('./services/SelectareOferte').getRouter(collections),
+            require('./services/Polite').getRouter(collections),
+            require('./services/Daune').getRouter(collections),
+            require('./services/Roluri').getRouter(collections),
+            require('./services/ServiceAuto').getRouter(collections),
             require('./services/upload').getRouter(collections),
-            require('./services/UserManagement').getRouter(collections)
+            require('./services/User').getRouter(collections)
         ];
         
         /* ## Load Routes ## */

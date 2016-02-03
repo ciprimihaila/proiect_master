@@ -7,9 +7,9 @@ angular.module('myApp.cerere', ['ngRoute', 'ngCookies'])
     templateUrl: 'views/cererepolita.html',
     controller: 'CerereCtrl',
     access: {
-        // loginRequired: true,
-        // requiredPermissions: ['Admin'],
-        // permissionType: 'AtLeastOne'
+        loginRequired: true,
+        requiredPermissions: ['User', 'Broker'],
+        permissionType: 'AtLeastOne'
     }
   });
 }])
@@ -18,7 +18,7 @@ angular.module('myApp.cerere', ['ngRoute', 'ngCookies'])
     $scope.vm = this;
     $scope.vm.readonly = false;
     $scope.vm.show = false;
-    var precompletatCerere = transferService.getCerere()//{};
+    var precompletatCerere = transferService.getCerere();
     
     function send() {
           $scope.vm.cerere['username'] = $cookies.get('username');//loggedUser.name;
@@ -49,8 +49,8 @@ angular.module('myApp.cerere', ['ngRoute', 'ngCookies'])
       $scope.vm.cerere = precompletatCerere;
     } else {
       $scope.vm.cerere = {};
-       $scope.vm.cerere.date = new Date();
-        $scope.vm.auto = {
+      $scope.vm.cerere.date = new Date();
+      $scope.vm.auto = {
           marcaAvailableOptions: carBrands,
           tipAutoAvailableOptions: tipAuto,
           durataAvailableOptions: [
@@ -58,15 +58,15 @@ angular.module('myApp.cerere', ['ngRoute', 'ngCookies'])
               {id: '2', name: '6 luni'},
               {id: '3', name: '1 an'}
             ]
-        }
+      };
     
-        $scope.vm.cerere = {
-            marca: {id : '1 ' , name : "Alfa Romeo"},
-            tipauto:{id : '1 ' , name : "Autoturism"},
-            durata:{id: '1', name: '3 luni'},
-        };
+      $scope.vm.cerere = {
+          marca: {id : '1 ' , name : "Alfa Romeo"},
+          tipauto:{id : '1 ' , name : "Autoturism"},
+          durata:{id: '1', name: '3 luni'},
+      };
   
-        $scope.vm.send = send;
+      $scope.vm.send = send;
     }
         
 }]);

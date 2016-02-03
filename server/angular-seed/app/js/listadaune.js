@@ -7,9 +7,9 @@ angular.module('myApp.listadaune', ['ngRoute', 'smart-table'])
     templateUrl: 'views/listadaune.html',
     controller: 'ListaDauneCtrl',
     access: {
-        // loginRequired: true,
-        // requiredPermissions: ['Broker'],
-        // permissionType: 'AtLeastOne'
+        loginRequired: true,
+        requiredPermissions: ['Broker'],
+        permissionType: 'AtLeastOne'
     }
   });
 }])

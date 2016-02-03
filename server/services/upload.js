@@ -4,6 +4,8 @@ var multer  = require('multer')
 
 var helpers = require("./../helpers");
 
+var drive = require("./../gdrive");
+
 var storage = multer.diskStorage({
   destination: function (req, file, cb) {
     cb(null, 'uploads/')
@@ -25,10 +27,13 @@ module.exports.getRouter = function(collections) {
         console.log("photo upload");
         console.log(req.file.mimetype);
         helpers.sendErrorResponse(res, "");
+        console.log("filename " + req.file.originalname);
+        drive.uploadToGoogledrive("uploads/" + req.file.originalname);
     });
     
     router.use('/uploads/:fname', function(req, res){
         console.log(req.params.fname);
+        console.log("test");
         res.sendFile("secondarytile.png", {root: __dirname + '/../uploads'});
 
     });

@@ -7,9 +7,9 @@ angular.module('myApp.dauna', ['ngRoute', 'ngFileUpload'])
     templateUrl: 'views/introduceredauna.html',
     controller: 'IntroDaunaCtrl',
     access: {
-        // loginRequired: true,
-        // requiredPermissions: ['Admin'],
-        // permissionType: 'AtLeastOne'
+        loginRequired: true,
+        requiredPermissions: ['User','Broker'],
+        permissionType: 'AtLeastOne'
     }
   });
 }])

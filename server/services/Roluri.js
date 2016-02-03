@@ -41,6 +41,5 @@ module.exports.getRouter = function(collections) {
         
     });
     
-    
     return router;
 }

@@ -6,6 +6,11 @@ angular.module('myApp.service', ['ngRoute'])
   $routeProvider.when('/service', {
     templateUrl: 'views/introducere_service.html',
     controller: 'ServiceCtrl',
+    access: {
+        loginRequired: true,
+        requiredPermissions: ['Admin'],
+        permissionType: 'AtLeastOne'
+    }
   });
 }])
 

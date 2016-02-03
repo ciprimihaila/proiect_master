@@ -7,9 +7,9 @@ angular.module('myApp.listacereri', ['ngRoute', 'smart-table'])
     templateUrl: 'views/listacereripolite.html',
     controller: 'ListaCereriCtrl',
     access: {
-        // loginRequired: true,
-        // requiredPermissions: ['Admin'],
-        // permissionType: 'AtLeastOne'
+        loginRequired: true,
+        requiredPermissions: ['Broker'],
+        permissionType: 'AtLeastOne'
     }
   });
 }])

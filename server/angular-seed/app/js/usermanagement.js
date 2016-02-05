@@ -88,7 +88,7 @@ angular.module('myApp.usermanagement', ['ngRoute', 'smart-table'])
             }
                 
         });
-    }
+    };
 
 }])
 .controller('selectRoleCtrl', function ($scope, $uibModalInstance, items, $http) {

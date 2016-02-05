@@ -39,9 +39,7 @@ angular.module('myApp.cerere', ['ngRoute', 'ngCookies'])
                 $scope.vm.message = data.message;
                 $scope.vm.show = true;
                 setTimeout(function(){ $route.reload(); }, 2000);
-               
             }
-                    
           });
     };
     

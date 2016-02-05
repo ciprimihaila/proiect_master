@@ -18,8 +18,8 @@ angular.module('myApp.service', ['ngRoute'])
 .controller('ServiceCtrl', ['$scope','$http','$location','$route', function($scope,$http,$location,$route) {
       $scope.vm = this;
       function send() {
+          
         var data = JSON.stringify($scope.vm.service);
-            
         var post = $http.post("/serviceAuto", data);
             
         post.success(function(data, status) {
@@ -37,8 +37,7 @@ angular.module('myApp.service', ['ngRoute'])
             
         });
       };
+      
       $scope.vm.send = send;
  
- 
-        
 }]);

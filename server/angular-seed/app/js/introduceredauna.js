@@ -24,8 +24,8 @@ angular.module('myApp.dauna', ['ngRoute', 'ngFileUpload'])
         marca: {id: '0', name: '-- select brand --'}
     };
     $scope.vm.show = false;
+    
     function dauna(file) {
-      
 
       $scope.vm.dauna['username'] = $cookies.get('username');
       $scope.vm.dauna['filename'] = file.name;
@@ -93,7 +93,6 @@ angular.module('myApp.dauna', ['ngRoute', 'ngFileUpload'])
     }
 
     $scope.vm.send = dauna;
-    
     $scope.vm.date = new Date();
         
 }]);

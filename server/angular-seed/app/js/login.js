@@ -37,39 +37,8 @@ angular.module('myApp.login', ['ngRoute', 'ngCookies'])
                     $cookies.put("username", $scope.vm.username);
                     $location.path(data.url);
                 }
-                
             });
-            
-            
-           // $scope.vm.dataLoading = true;
-           
-            
-            // var path = "/login";
-            
-            //  if ($scope.vm.username == 'admin'){
-            //     loggedUser = {
-            //         name: 'test',
-            //         permissions: ['Admin']
-            //     };
-            //     path = "/usermanagement";
-            // } else if ($scope.vm.username == 'broker'){
-            //     loggedUser = {
-            //         name: 'test',
-            //         permissions: ['Broker']
-            //     };
-            //     path = "/listacereripolite";
-            // } else if ($scope.vm.username == 'user'){
-            //     loggedUser = {
-            //         name: 'test',
-            //         permissions: ['User']
-            //     };
-            //     path = "/cerere";
-            // }
-            
-            // $location.path(path);
-      };
+      }
       $scope.vm.login = login;
- 
-     
         
 }]);

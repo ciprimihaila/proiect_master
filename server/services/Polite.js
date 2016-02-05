@@ -1,13 +1,13 @@
 var express = require ("express");
 var router = express.Router();
 
-var helpers = require("./../helpers");
+var helpers = require("./../lib/helpers");
 
 var ObjectID = require('mongodb').ObjectID;
 
 module.exports.getRouter = function(collections) {
-    var cerereCollection = collections['cerere'];
-    var userCollection = collections['users'];
+    var cerereCollection = collections.cerere;
+    var userCollection = collections.users;
     
     
     router.post('/emitereCerere', function (req, res) {
@@ -63,7 +63,7 @@ module.exports.getRouter = function(collections) {
         }
         
         var message;
-        if ( (message = helpers.validateParams(params, req.body)) != null ) {
+        if ( (message = helpers.validateParams(params, req.body)) !== null ) {
             helpers.sendErrorResponse(res, message);
             return;
         }
@@ -88,11 +88,11 @@ module.exports.getRouter = function(collections) {
                             return;
                         }
                         helpers.sendOkResponse(res, "Cerere trimisa", '/cerere');
-                    })
+                    });
                 }
-            )
+            );
     
-        })
+        });
         
     });
     
@@ -107,7 +107,7 @@ module.exports.getRouter = function(collections) {
                 helpers.sendErrorResponse(res, err, '/login');
                 return;
             }
-            if (doc == null) {
+            if (doc === null) {
                 helpers.sendOkResponse(res, cerereArray);
                 return;    
             }
@@ -116,4 +116,4 @@ module.exports.getRouter = function(collections) {
     });
     
     return router;
-}
+};

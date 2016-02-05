@@ -18,11 +18,9 @@ angular.module('myApp.usermanagement', ['ngRoute', 'smart-table'])
     
     $scope.items = ['User', 'Broker', 'Admin'];
 
-     
-     // var vm = this;
-     var collection = [];
+    var collection = [];
     
-     var gett = $http({
+    var gett = $http({
         url: "/useri",
         method: "GET",
     });

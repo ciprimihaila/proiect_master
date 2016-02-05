@@ -1,14 +1,16 @@
 var express = require ("express");
 var router = express.Router();
 
-var helpers = require("./../helpers");
+var helpers = require("./../lib/helpers");
 var ObjectID = require('mongodb').ObjectID;
-    
+
+var globalDaunaCollection;
+
 module.exports.getRouter = function(collections) {
-    var cerereCollection = collections['cerere'];
-    var userCollection = collections['users'];
-    var daunaCollection = collections['dauna'];
-    
+    var cerereCollection = collections.cerere;
+    var userCollection = collections.users;
+    var daunaCollection = collections.dauna;
+    globalDaunaCollection = daunaCollection;
     
     router.get('/daune', function(req, res) {
         console.log("get dauna");
@@ -22,7 +24,7 @@ module.exports.getRouter = function(collections) {
                 helpers.sendErrorResponse(res, err, '/login');
                 return;
             }else{
-                if (doc == null){
+                if (doc === null){
                     res.send(JSON.stringify({status: 'ok', message: dauneArray}));
                     return;
                 } else {
@@ -39,17 +41,18 @@ module.exports.getRouter = function(collections) {
        console.log(req.body);
     
         var params = {
-            "marca": 'array',
+            "marca": 'string',//'array',
             "polita": "string",
             "inmatriculare": "string",
-            "cnp": "int",
+            "cnp": "string",//"int",
             "model": "string",
             "location":"string",
             "description":"string",
             "username":"string",
-        }
+            "urlimagine":"string"
+        };
         var message;
-        if ( (message = helpers.validateParams(params, req.body)) != null ) {
+        if ( (message = helpers.validateParams(params, req.body)) !== null ) {
             helpers.sendErrorResponse(res, message);
             return;
         }
@@ -85,4 +88,19 @@ module.exports.getRouter = function(collections) {
     });
     
     return router;
-}
+};
+
+module.exports.updateDaunaWithDriveID = function( polita, username, fileGDriveId) {
+    console.log(polita + " " + username + " "+ fileGDriveId);
+    globalDaunaCollection.update(
+            {polita:polita, username:username},//, username:username
+            {'$set': {'urlimagine': "https://docs.google.com/uc?id=" + fileGDriveId}},
+            function (err, result) {
+                if (err) {
+                    console.log(err);
+                    return;
+                }
+                console.log("file id updated" + result);
+            }
+        );
+};

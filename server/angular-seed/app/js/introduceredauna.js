@@ -25,25 +25,12 @@ angular.module('myApp.dauna', ['ngRoute', 'ngFileUpload'])
     };
     $scope.vm.show = false;
     function dauna(file) {
-       file.upload = Upload.upload({
-            url: '/upload',
-            data: {"file": file},
-      });
-  
-      file.upload.then(function (response) {
-        $timeout(function () {
-          file.result = response.data;
-        });
-      }, function (response) {
-        if (response.status > 0)
-          $scope.errorMsg = response.status + ': ' + response.data;
-      }, function (evt) {
-        // Math.min is to fix IE which reports 200% sometimes
-        file.progress = Math.min(100, parseInt(100.0 * evt.loaded / evt.total));
-      });
+      
 
       $scope.vm.dauna['username'] = $cookies.get('username');
       $scope.vm.dauna['filename'] = file.name;
+      $scope.vm.dauna['urlimagine'] = file.name;
+      $scope.vm.dauna['marca'] = $scope.vm.dauna.marca.name;
       console.log($scope.vm.dauna)
       var data = JSON.stringify($scope.vm.dauna);
       
@@ -63,13 +50,44 @@ angular.module('myApp.dauna', ['ngRoute', 'ngFileUpload'])
             }
           });
         
+        
+         file.upload = Upload.upload({
+            url: '/upload',
+            data: {"file": file,
+              user: $cookies.get('username'),
+                  id:  $scope.vm.dauna.polita
+              }
+          });
+  
+          file.upload.then(function (response) {
+            $timeout(function () {
+              file.result = response.data;
+            }); 
+          }, function (response) {
+            if (response.status > 0)
+              $scope.errorMsg = response.status + ': ' + response.data;
+            }, function (evt) {
+            // Math.min is to fix IE which reports 200% sometimes
+            file.progress = Math.min(100, parseInt(100.0 * evt.loaded / evt.total));
+          });
             
       };
+      
+      
+    function findEntryMarca(name){
+       for (var i = 0; i < carBrands.length; i++){
+        if (carBrands[i].name == name){
+          return carBrands[i];
+        }
+      }
+    }
 
     if (precompletatDauna != null){
+      
       $scope.vm.readonly = true;
       $scope.vm.dauna = precompletatDauna;
-      $scope.vm.dauna.filename = "/uploads/"+$scope.vm.dauna.filename;
+      $scope.vm.dauna.marca = findEntryMarca($scope.vm.dauna.marca);
+      $scope.vm.dauna.filename = $scope.vm.dauna.urlimagine; 
     } else {
       $scope.vm.dauna = {};
     }

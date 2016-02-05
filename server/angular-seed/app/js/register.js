@@ -35,5 +35,4 @@ angular.module('myApp.register', ['ngRoute'])
       $scope.vm.register = register;
  
  
-        
 }]);

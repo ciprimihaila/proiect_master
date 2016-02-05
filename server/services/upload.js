@@ -1,23 +1,23 @@
 var express = require ("express");
 var router = express.Router();
-var multer  = require('multer')
+var multer  = require('multer');
 
-var helpers = require("./../helpers");
+var helpers = require("./../lib/helpers");
 
-var drive = require("./../gdrive");
+var drive = require("./../lib/gdrive");
 
 var storage = multer.diskStorage({
   destination: function (req, file, cb) {
-    cb(null, 'uploads/')
+    cb(null, 'uploads/');
   },
   filename: function (req, file, cb) {
     var extension = file.mimetype.split("/")[1];
     console.log(extension);
-    cb(null, file.originalname) //Appending .jpg
+    cb(null, file.originalname); //Appending .jpg
   }
-})
+});
 
-var upload = multer({ storage: storage })
+var upload = multer({ storage: storage });
 
 
 module.exports.getRouter = function(collections) {
@@ -27,8 +27,10 @@ module.exports.getRouter = function(collections) {
         console.log("photo upload");
         console.log(req.file.mimetype);
         helpers.sendErrorResponse(res, "");
+        //console.log(req);
         console.log("filename " + req.file.originalname);
-        drive.uploadToGoogledrive("uploads/" + req.file.originalname);
+        var fileSaveName = req.body.user + "##" + req.body.id;
+        drive.uploadToGoogledrive("uploads/" + req.file.originalname, fileSaveName);
     });
     
     router.use('/uploads/:fname', function(req, res){
@@ -39,4 +41,4 @@ module.exports.getRouter = function(collections) {
     });
     
     return router;
-}
+};

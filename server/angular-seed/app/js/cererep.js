@@ -14,14 +14,16 @@ angular.module('myApp.cerere', ['ngRoute', 'ngCookies'])
   });
 }])
 
-.controller('CerereCtrl', ['$scope', '$http', '$location', 'transferService', '$cookies', '$route', function($scope, $http, $location, transferService, $cookies, $route) {
+.controller('CerereCtrl', ['$scope', '$http', '$location', 'transferService', '$cookies', '$route', 
+    function($scope, $http, $location, transferService, $cookies, $route) {
+      
     $scope.vm = this;
     $scope.vm.readonly = false;
     $scope.vm.show = false;
     var precompletatCerere = transferService.getCerere();
     
     function send() {
-          $scope.vm.cerere['username'] = $cookies.get('username');//loggedUser.name;
+          $scope.vm.cerere['username'] = $cookies.get('username');
           var data = JSON.stringify($scope.vm.cerere);
                 
           var post = $http.post("/cerere", data);
@@ -34,7 +36,6 @@ angular.module('myApp.cerere', ['ngRoute', 'ngCookies'])
                 $scope.vm.show = true;
             } else if (data.status == 'ok'){
                 $scope.vm.class = "alert alert-success";
-               
                 $scope.vm.message = data.message;
                 $scope.vm.show = true;
                 setTimeout(function(){ $route.reload(); }, 2000);

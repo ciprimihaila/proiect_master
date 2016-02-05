@@ -1,13 +1,13 @@
 "use strict";
 
-var helpers = require("./helpers");
+var helpers = require("./lib/helpers");
 
 /* ## Express ## */
 var express = require ("express");
 var bodyParser = require ("body-parser");
 
 
-require("./dbConnection").connect(
+require("./lib/dbConnection").connect(
     function(err, db) {
         
         if (err) {

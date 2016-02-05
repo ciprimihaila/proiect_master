@@ -1,13 +1,10 @@
 var express = require ("express");
 var router = express.Router();
 
-var helpers = require("./../helpers");
+var helpers = require("./../lib/helpers");
     
 module.exports.getRouter = function(collections) {
-    var cerereCollection = collections['cerere'];
-    var userCollection = collections['users'];
-    var daunaCollection = collections['dauna'];
-    var serviceCollection = collections['service'];
+    var serviceCollection = collections.service;
         
     
     router.get('/serviceuriAuto', function(req, res) {
@@ -21,7 +18,7 @@ module.exports.getRouter = function(collections) {
                 helpers.sendErrorResponse(res, err);
                 return;
             }
-            if (doc == null) {
+            if (doc === null) {
                 helpers.sendOkResponse(res, serviceArray);
                 return;    
             }
@@ -41,9 +38,9 @@ module.exports.getRouter = function(collections) {
             "address": "string",
             "email": "string",
             "phone":"string",
-        }
+        };
         var message;
-        if ( (message = helpers.validateParams(params, req.body)) != null ) {
+        if ( (message = helpers.validateParams(params, req.body)) !== null ) {
             helpers.sendErrorResponse(res, message);
             return;
         }
@@ -52,7 +49,7 @@ module.exports.getRouter = function(collections) {
                 helpers.sendErrorResponse(res, err);
                 return;
             }
-            if (doc != null) {
+            if (doc !== null) {
                 helpers.sendErrorResponse(res, "Nume service exista");
                 return;
             }
@@ -62,10 +59,10 @@ module.exports.getRouter = function(collections) {
                     return;
                 }
                 helpers.sendOkResponse(res, "Service creat", '/service');
-            })
+            });
 
-        })
+        });
     });
     
     return router;
-}
+};

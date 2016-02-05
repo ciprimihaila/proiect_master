@@ -16,8 +16,7 @@ angular.module('myApp.listadaune', ['ngRoute', 'smart-table'])
 
 .controller('ListaDauneCtrl',  ['$scope', '$http', '$location', '$uibModal', 'transferService', '$route',
                                         function($scope, $http, $location, $uibModal, transferService, $route) {
-    // var vm = this;
-     
+    
     var gett = $http({
         url: "/daune",
         method: "GET",
@@ -91,7 +90,7 @@ angular.module('myApp.listadaune', ['ngRoute', 'smart-table'])
     var collection = [];      
     gett.success(function(data, status) {
         if (data.status == 'error'){
-            //todo
+            console.log("error");
         } else if (data.status == 'ok'){
             for (var entry in data.message) {
                 console.log(data.message[entry]);

@@ -29,13 +29,10 @@ angular.module('myApp.service', ['ngRoute'])
                 $location.path('/service');
                 $scope.vm.show = true;
             } else if (data.status == 'ok'){
-                //$location.path(data.url);
-               // $route.reload();
                 $scope.vm.class = "alert alert-success"
                 $scope.vm.message = data.message;
                 $scope.vm.show = true;
                 setTimeout(function(){ $route.reload(); }, 2000);
-                
             }
             
         });

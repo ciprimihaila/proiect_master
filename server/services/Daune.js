@@ -1,3 +1,6 @@
+/** @module service/Dauna */
+
+
 var express = require ("express");
 var router = express.Router();
 
@@ -7,18 +10,10 @@ var ObjectID = require('mongodb').ObjectID;
 var globalDaunaCollection;
 
 /**
-  * Registers routes for Daune module
-  * 
-  * @param collection Database collections that can be accessed from module
-  */ 
-module.exports.getRouter = function(collections) {
-    var cerereCollection = collections.cerere;
-    var userCollection = collections.users;
-    var daunaCollection = collections.dauna;
-    globalDaunaCollection = daunaCollection;
-    
-    router.get('/daune', function(req, res) {
-        console.log("get dauna");
+ * Get all entries in collection dauna, that were not confirmed
+ */ 
+function getDauna(daunaCollection, req, res) {
+     console.log("get dauna");
     
         var cursorDauna = daunaCollection.find({daunaConfirmata: false});
         
@@ -38,10 +33,22 @@ module.exports.getRouter = function(collections) {
                 }
             }
         });
-    
-    });
-    
-    router.post('/dauna', function(req, res) {
+}
+
+/**
+ * Add a new entry in the Dauna collection
+ * 
+ * @param {string} marca
+ * @param {string} polita
+ * @param {string} inmatriculare
+ * @param {string} cnp
+ * @param {string} model
+ * @param {string} location
+ * @param {string} description
+ * @param {string} username
+ * @param {string} urlimage
+ */ 
+function createDauna(daunaCollection, req, res) {
        console.log("post dauna");
        console.log(req.body);
     
@@ -70,10 +77,16 @@ module.exports.getRouter = function(collections) {
             }
             helpers.sendOkResponse(res,  'Constatare dauna adaugata', '/introduceredauna');
         });
-    });
-    
-    router.post('/updateDauna', function (req, res) {
-        console.log("post update Dauna");
+}
+
+/**
+ * Update an entry from dauna collection
+ * 
+ * @param {string} idDauna
+ * @param {string} idService
+ */
+function updateDauna(daunaCollection, req, res) {
+     console.log("post update Dauna");
         console.log(req.body);
         var params = {
             idDauna: 'string',
@@ -90,6 +103,29 @@ module.exports.getRouter = function(collections) {
                 helpers.sendOkResponse(res, "Dauna trimisa in service");
             }
         );
+}
+
+/**
+  * Registers routes for Daune module
+  * 
+  * @param collection Database collections that can be accessed from module
+  */ 
+module.exports.getRouter = function(collections) {
+    var cerereCollection = collections.cerere;
+    var userCollection = collections.users;
+    var daunaCollection = collections.dauna;
+    globalDaunaCollection = daunaCollection;
+    
+    router.get('/daune', function(req, res) {
+       getDauna(daunaCollection, req, res);
+    });
+    
+    router.post('/dauna', function(req, res) {
+        createDauna(daunaCollection, req, res);
+    });
+    
+    router.post('/updateDauna', function (req, res) {
+       updateDauna(daunaCollection, req, res);
     });
     
     return router;

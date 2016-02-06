@@ -1,3 +1,4 @@
+/** @module service/Polita */
 var express = require ("express");
 var router = express.Router();
 
@@ -5,18 +6,14 @@ var helpers = require("./../lib/helpers");
 
 var ObjectID = require('mongodb').ObjectID;
 
+
 /**
-  * Registers routes for Polite module
-  * 
-  * @param collection Database collections that can be accessed from module
-  */ 
-module.exports.getRouter = function(collections) {
-    var cerereCollection = collections.cerere;
-    var userCollection = collections.users;
-    
-    
-    router.post('/emitereCerere', function (req, res) {
-        console.log("post emitereCerere");
+ * Function used when a brooker confirms a entry from "Cerere"
+ * 
+ * @param {string} id
+ */ 
+function emitereCerere(cerereCollection, req, res) {
+     console.log("post emitereCerere");
         console.log(req.body);
         var params = {
             id: 'string'  
@@ -32,11 +29,27 @@ module.exports.getRouter = function(collections) {
                 helpers.sendOkResponse(res, "Cerere emisa");
             }
         );
-    });
-    
-    
-    router.post('/cerere', function (req, res) {
-        console.log("post cerere");
+}
+
+/**
+ * Add a new entry in the "Cerere" collection
+ * 
+ * @param {string} marca
+ * @param {string} model
+ * @param {int} tipauto
+ * @param {string} cnp
+ * @param {int} persfizica
+ * @param {string} power
+ * @param {string} serie
+ * @param {int} combustibil
+ * @param {string} anfabric
+ * @param {string} date
+ * @param {string} username
+ * @param {date} durata
+ * @param {string} address
+ */ 
+function addCerere(userCollection, cerereCollection, req, res) {
+     console.log("post cerere");
         console.log(req.body);
         var params = {
             marca: 'array',
@@ -98,26 +111,51 @@ module.exports.getRouter = function(collections) {
             );
     
         });
-        
+}
+
+/**
+ * Get all entries from "Cerere" collection
+ */ 
+function getCereri(cerereCollection, req, res) {
+    console.log("get cerere");
+    
+    var cursorCerere = cerereCollection.find({cerereEmisa: false});
+    
+    var cerereArray = [];
+    cursorCerere.each(function(err, doc) {
+        if (err) {
+            helpers.sendErrorResponse(res, err, '/login');
+            return;
+        }
+        if (doc === null) {
+            helpers.sendOkResponse(res, cerereArray);
+            return;    
+        }
+        cerereArray.push(doc);
+    });
+}
+
+/**
+  * Registers routes for Polite module
+  * 
+  * @param collection Database collections that can be accessed from module
+  */ 
+module.exports.getRouter = function(collections) {
+    var cerereCollection = collections.cerere;
+    var userCollection = collections.users;
+    
+    
+    router.post('/emitereCerere', function (req, res) {
+       emitereCerere(cerereCollection, req, res);
+    });
+    
+    
+    router.post('/cerere', function (req, res) {
+       addCerere(userCollection, cerereCollection, req, res);
     });
     
     router.get('/cereri', function (req, res) {
-        console.log("get cerere");
-        
-        var cursorCerere = cerereCollection.find({cerereEmisa: false});
-        
-        var cerereArray = [];
-        cursorCerere.each(function(err, doc) {
-            if (err) {
-                helpers.sendErrorResponse(res, err, '/login');
-                return;
-            }
-            if (doc === null) {
-                helpers.sendOkResponse(res, cerereArray);
-                return;    
-            }
-            cerereArray.push(doc);
-        });
+        getCereri(cerereCollection, req, res);
     });
     
     return router;

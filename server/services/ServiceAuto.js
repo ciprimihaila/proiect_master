@@ -2,7 +2,12 @@ var express = require ("express");
 var router = express.Router();
 
 var helpers = require("./../lib/helpers");
-    
+
+/**
+  * Registers routes for ServiceAuto module
+  * 
+  * @param collection Database collections that can be accessed from module
+  */ 
 module.exports.getRouter = function(collections) {
     var serviceCollection = collections.service;
         

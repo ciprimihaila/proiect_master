@@ -6,6 +6,11 @@ var ObjectID = require('mongodb').ObjectID;
 
 var globalDaunaCollection;
 
+/**
+  * Registers routes for Daune module
+  * 
+  * @param collection Database collections that can be accessed from module
+  */ 
 module.exports.getRouter = function(collections) {
     var cerereCollection = collections.cerere;
     var userCollection = collections.users;

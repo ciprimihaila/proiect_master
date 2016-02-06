@@ -4,7 +4,9 @@ var router = express.Router();
 var helpers = require("./../lib/helpers");
 
 /**
-  * Register routes for current module
+  * Registers routes for User module
+  * 
+  * @param collection Database collections that can be accessed from module
   */ 
 module.exports.getRouter = function(collections) {
     var userCollection = collections.users;

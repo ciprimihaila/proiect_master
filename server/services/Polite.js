@@ -5,6 +5,11 @@ var helpers = require("./../lib/helpers");
 
 var ObjectID = require('mongodb').ObjectID;
 
+/**
+  * Registers routes for Polite module
+  * 
+  * @param collection Database collections that can be accessed from module
+  */ 
 module.exports.getRouter = function(collections) {
     var cerereCollection = collections.cerere;
     var userCollection = collections.users;

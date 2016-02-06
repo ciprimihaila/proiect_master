@@ -1,0 +1,1 @@
+var express=require("express"),router=express.Router();router.use(express["static"](__dirname+"/../angular-seed/app")),router.get("/",function(a,b){b.sendFile(express["static"](__dirname+"/../angular-seed/app/index.html"))}),module.exports=router;

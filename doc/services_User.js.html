@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: services/User.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: services/User.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/** @module service/User */
+
+var express = require ("express");
+var router = express.Router();
+
+var helpers = require("./../lib/helpers");
+
+ /**
+  * Used for user authentication.
+  * 
+  * @param username
+  * @param password
+  */ 
+function getUser(userCollection, req, res) {
+    console.log("get User");
+    console.log(req.query);
+    var params = {
+        'username': 'string',
+        'password': 'string'
+    };
+    
+    var message;
+    if ( (message = helpers.validateParams(params, req.query)) !== null ) {
+        helpers.sendErrorResponse(res, message);
+        return;
+    }
+
+   userCollection.findOne({username:req.query.username, password:req.query.password}, function(err, doc){
+       if (err) {
+           helpers.sendErrorResponse(res, err, "/login");
+           return;
+       }
+       console.log("Got");
+       console.log(doc);
+       if (doc === null) {
+            helpers.sendErrorResponse(res, "User does not exist or Incorrect Password", "/login");
+       } else {
+           if (!doc.role) {doc.role = null;}
+           var url = null;
+           if (doc.role == 'Broker') {
+               url = '/listacereripolite';
+           }
+           else if (doc.role == 'Admin') {
+               url = '/usermanagement';
+           } else {
+               url = '/cerere';
+           }
+           
+           helpers.sendOkResponse(res, {role: doc.role}, url);
+       }
+   });
+}
+
+/**
+ * Add new user
+ * 
+ * @param {string} username
+ * @param {string} password
+ * @param {string} firstName
+ * @param {string} lastName
+ * @param {string} email
+ * @param {string} phone
+ */
+function addUser(userCollection, req, res) {
+    console.log("post User");
+    console.log(req.body);
+    var params = {
+        'username': 'string',
+        'password': 'string',
+        'firstName': 'string',
+        'lastName': 'string',
+        'email': 'string',
+        'phone': 'string'
+    };
+    var message;
+    if ( (message = helpers.validateParams(params, req.body)) !== null ) {
+        helpers.sendErrorResponse(res, message);
+        return;
+    }
+    
+    userCollection.findOne({username: req.body.username}, function(err, doc) {
+        if (err) {
+            helpers.sendErrorResponse(res, err, '/register');
+            return;
+        }
+        if (doc !== null) {
+            res.send(JSON.stringify({status: 'error', message: "User already exists", url: '/register'}));
+            return;
+        }
+        req.body.role = "User";
+        userCollection.insertOne(req.body, function(err, response) {
+            if (err) {
+                res.send(JSON.stringify({status: 'error', message: err, url: '/register'}));
+                return;
+            }
+            res.send(JSON.stringify({status: 'ok', message: 'User succesfully created', url: '/login'}));
+        });
+    });
+}
+
+/**
+ * Get a list with all users in the system
+ */ 
+function getUsers(userCollection, req, res) {
+    console.log("get useri");
+    console.log(req.query);
+    
+    var userCursor = userCollection.find({});
+    
+    var userArray = [];
+    userCursor.each(function(err, doc) {
+        if (err) {
+            helpers.sendErrorResponse(res, err);
+            return;
+        }
+        if (doc === null) {
+            helpers.sendOkResponse(res, userArray);
+            return;    
+        }
+        userArray.push(doc);
+    });
+}
+
+/**
+ * Delete a user.
+ * 
+ * @param {string} username
+ */
+function deleteUser(userCollection, req, res) {
+    console.log("post delteUserr");
+    console.log(req.body);
+    var params = {
+        'username': 'string'
+    };
+    
+    var message;
+    if ( (message = helpers.validateParams(params, req.body)) !== null ) {
+        helpers.sendErrorResponse(res, message);
+        return;
+    }
+    
+    userCollection.findOne({username:req.body.username}, function(err, doc) {
+        if (err) {
+           helpers.sendErrorResponse(res, err);
+           return;
+        }
+        if (doc === null) {
+            helpers.sendErrorResponse(res, "User does not exist");
+            return;
+        }
+    
+        userCollection.deleteOne({username: req.body.username}, function(err, result) {
+           if (err) {
+               helpers.sendErrorResponse(res, err);
+               return;
+           }
+           helpers.sendOkResponse(res, "User deleted");
+        });
+    });
+}
+
+/**
+  * Registers routes for User module
+  * 
+  * @param collection Database collections that can be accessed from module
+  */ 
+module.exports.getRouter = function(collections) {
+    var userCollection = collections.users;
+
+    router.get('/user', function(req, res) {
+       getUser(userCollection, req, res);
+    });
+    
+    router.post('/user', function (req, res) {
+       addUser(userCollection, req, res);
+    });
+    
+    router.get('/useri', function(req, res) {
+        getUsers(userCollection, req, res);
+    });
+    
+    router.post('/deleteUser', function(req, res) {
+       deleteUser(userCollection, req, res);
+    });
+    
+    
+    return router;
+};
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="MainModule.module_NotAuthorized.html">NotAuthorized</a></li><li><a href="module-Cerere.html">Cerere</a></li><li><a href="module-Dauna.html">Dauna</a></li><li><a href="module-ListaCereriPolita.html">ListaCereriPolita</a></li><li><a href="module-ListaDaune.html">ListaDaune</a></li><li><a href="module-Login.html">Login</a></li><li><a href="module-MainModule.html">MainModule</a></li><li><a href="module-Register.html">Register</a></li><li><a href="module-service_Dauna.html">service/Dauna</a></li><li><a href="module-service_Polita.html">service/Polita</a></li><li><a href="module-service_ServiceAuto.html">service/ServiceAuto</a></li><li><a href="module-service_User.html">service/User</a></li><li><a href="module-ServiceAuto.html">ServiceAuto</a></li><li><a href="module-UserManagement.html">UserManagement</a></li></ul><h3>Classes</h3><ul><li><a href="module-Cerere-ControllerCerere.html">ControllerCerere</a></li><li><a href="module-Dauna-ControllerDauna.html">ControllerDauna</a></li><li><a href="module-ListaCereriPolita-ControllerListaCereriPolita.html">ControllerListaCereriPolita</a></li><li><a href="module-ListaDaune-ControllerListaDaune.html">ControllerListaDaune</a></li><li><a href="module-Login-ContrllerLogin.html">ContrllerLogin</a></li><li><a href="module-MainModule-NavigationController.html">NavigationController</a></li><li><a href="module-Register-ControllerRegister.html">ControllerRegister</a></li><li><a href="module-ServiceAuto-ControllerServiceAuto.html">ControllerServiceAuto</a></li><li><a href="module-UserManagement-ControllerUserManagement.html">ControllerUserManagement</a></li></ul><h3>Global</h3><ul><li><a href="global.html#authorize">authorize</a></li><li><a href="global.html#callback">callback</a></li><li><a href="global.html#connect">connect</a></li><li><a href="global.html#editRole">editRole</a></li><li><a href="global.html#getNewToken">getNewToken</a></li><li><a href="global.html#getRouter">getRouter</a></li><li><a href="global.html#listFiles">listFiles</a></li><li><a href="global.html#sendErrorResponse">sendErrorResponse</a></li><li><a href="global.html#sendOkResponse">sendOkResponse</a></li><li><a href="global.html#storeToken">storeToken</a></li><li><a href="global.html#uploadfile">uploadfile</a></li><li><a href="global.html#uploadToGoogledrive">uploadToGoogledrive</a></li><li><a href="global.html#validateParams">validateParams</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.0</a> on Sat Feb 06 2016 17:37:33 GMT+0000 (UTC)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

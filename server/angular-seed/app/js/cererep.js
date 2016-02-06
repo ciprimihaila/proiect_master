@@ -1,5 +1,6 @@
 'use strict';
 
+/** @module Cerere  */
 angular.module('myApp.cerere', ['ngRoute', 'ngCookies'])
 
 .config(['$routeProvider', function($routeProvider) {
@@ -14,6 +15,7 @@ angular.module('myApp.cerere', ['ngRoute', 'ngCookies'])
   });
 }])
 
+/** @class ControllerCerere */
 .controller('CerereCtrl', ['$scope', '$http', '$location', 'transferService', '$cookies', '$route', 
     function($scope, $http, $location, transferService, $cookies, $route) {
       

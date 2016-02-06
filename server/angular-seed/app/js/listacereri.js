@@ -1,5 +1,5 @@
 'use strict';
-
+/** @module ListaCereriPolita  */
 angular.module('myApp.listacereri', ['ngRoute', 'smart-table'])
 
 .config(['$routeProvider', function($routeProvider) {
@@ -14,6 +14,7 @@ angular.module('myApp.listacereri', ['ngRoute', 'smart-table'])
   });
 }])
 
+/** @class ControllerListaCereriPolita  */
 .controller('ListaCereriCtrl', ['$scope', '$http', '$location', 'transferService', '$route', 
     function($scope, $http, $location, transferService, $route) {
     

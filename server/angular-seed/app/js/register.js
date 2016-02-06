@@ -1,5 +1,5 @@
 'use strict';
-
+/** @module Register  */
 angular.module('myApp.register', ['ngRoute'])
 
 .config(['$routeProvider', function($routeProvider) {
@@ -9,7 +9,7 @@ angular.module('myApp.register', ['ngRoute'])
   });
 }])
 
-
+/** @class ControllerRegister  */
 .controller('RegisterCtrl', ['$scope', '$http', '$location', function($scope, $http, $location ) {
       $scope.vm = this;
       $scope.vm.show = false;

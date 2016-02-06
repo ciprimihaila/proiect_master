@@ -1,5 +1,5 @@
 'use strict';
-
+/** @module ServiceAuto  */
 angular.module('myApp.service', ['ngRoute'])
 
 .config(['$routeProvider', function($routeProvider) {
@@ -14,7 +14,7 @@ angular.module('myApp.service', ['ngRoute'])
   });
 }])
 
-
+/** @class ControllerServiceAuto  */
 .controller('ServiceCtrl', ['$scope','$http','$location','$route', function($scope,$http,$location,$route) {
       $scope.vm = this;
       function send() {

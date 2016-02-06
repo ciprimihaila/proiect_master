@@ -1,5 +1,5 @@
 'use strict';
-
+/** @module Login  */
 angular.module('myApp.login', ['ngRoute', 'ngCookies'])
 
 .config(['$routeProvider', function($routeProvider) {
@@ -9,6 +9,7 @@ angular.module('myApp.login', ['ngRoute', 'ngCookies'])
   });
 }])
 
+/** @class ContrllerLogin  */
 .controller('LoginCtrl', ['$scope', '$location', '$http', '$cookies', function($scope, $location, $http, $cookies) {
       
       $scope.vm = this;

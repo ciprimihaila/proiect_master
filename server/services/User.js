@@ -3,9 +3,18 @@ var router = express.Router();
 
 var helpers = require("./../lib/helpers");
 
+/**
+  * Register routes for current module
+  */ 
 module.exports.getRouter = function(collections) {
     var userCollection = collections.users;
     
+     /**
+      * Used for user authentication.
+      * 
+      * @param username
+      * @param password
+      */ 
      router.get('/user', function(req, res) {
         console.log("get User");
         console.log(req.query);
